@@ -1,0 +1,22 @@
+#picsart-loader {
+	@apply wlc-fixed wlc-top-0 wlc-left-0 wlc-w-full wlc-h-full wlc-z-[9999999];
+	@apply wlc-pointer-events-none;
+}
+
+.picsart-loader-overlay {
+	@apply wlc-absolute wlc-top-0 wlc-left-0 wlc-w-full wlc-h-full;
+	@apply wlc-bg-[rgba(0,0,0,0.3)] wlc-flex wlc-items-center wlc-justify-center;
+}
+
+.picsart-loader-content {
+	@apply wlc-bg-white wlc-p-8 wlc-rounded-lg wlc-shadow-lg wlc-text-center wlc-min-w-52;
+}
+
+.picsart-spinner {
+	@apply wlc-w-10 wlc-h-10 wlc-border-4 wlc-border-solid wlc-border-[#f3f3f3] wlc-border-t-accents-secondary wlc-rounded-full;
+	@apply wlc-animate-spin wlc-mx-auto wlc-mb-4;
+}
+
+.picsart-loader-content p {
+	@apply wlc-mt-0 wlc-mb-0 wlc-text-base wlc-text-[#333] wlc-font-medium;
+}

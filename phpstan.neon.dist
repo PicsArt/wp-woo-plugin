@@ -1,0 +1,13 @@
+includes:
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 8
+    bootstrapFiles:
+    	- vendor/autoload.php
+    	- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    paths:
+        - ./includes
+    checkGenericClassInNonGenericObjectType: false
+    phpVersion: 80100
+

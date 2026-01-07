@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import "./modal.css"; */
+
+.picsart-pt-0 {
+	@apply !wlc-pt-0;
+}
+
+.picsart-wrapper {
+	font-family: "Gilroy", sans-serif;
+}
+
+.picsart-button-outline {
+	@apply wlc-block wlc-w-full lg:wlc-w-auto wlc-text-center;
+	@apply wlc-text-base wlc-text-white wlc-font-semibold wlc-px-[2rem] wlc-py-[0.75rem] wlc-border wlc-border-accents-tertiary wlc-rounded-full;
+	@apply wlc-ease-in-out wlc-transition wlc-duration-[200ms];
+	@apply wlc-no-underline;
+	@apply hover:wlc-bg-white hover:wlc-text-accents-secondary;
+}
+
+.picsart-button {
+	@apply wlc-inline-flex wlc-items-center wlc-gap-[0.25rem];
+	@apply wlc-cursor-pointer;
+	@apply wlc-px-[0.625rem] wlc-py-[0.5rem];
+	@apply wlc-bg-accents-secondary wlc-rounded-lg;
+	@apply wlc-text-xs wlc-text-white wlc-font-medium;
+	@apply wlc-ease-in-out wlc-transition wlc-duration-[200ms];
+	@apply wlc-border-none;
+	@apply hover:wlc-opacity-80 hover:wlc-text-white;
+}
+
+.picsart-button.secondary {
+	@apply wlc-inline-flex wlc-items-center wlc-gap-[0.25rem];
+	@apply wlc-cursor-pointer;
+	@apply wlc-px-[0.5rem] wlc-py-[0.375rem];
+	@apply wlc-text-xs  wlc-font-medium;
+	@apply wlc-ease-in-out wlc-transition wlc-duration-[200ms];
+	@apply wlc-text-accents-secondary wlc-bg-white wlc-border wlc-border-solid wlc-border-accents-secondary;
+	@apply hover:wlc-bg-accents-secondary hover:wlc-text-white;
+
+	svg path {
+		@apply wlc-transition-colors wlc-duration-[200ms] wlc-ease-in-out;
+	}
+
+	&:hover svg path {
+		@apply wlc-fill-white wlc-stroke-white;
+	}
+}
+
+[data-picsart-form] {
+	@apply wlc-flex wlc-flex-wrap wlc-gap-[0.5rem] wlc-items-stretch;
+}
+
+.picsart-button.small {
+	@apply wlc-py-[0.25rem];
+}
+
+.picsart-dropdown {
+	@apply wlc-relative wlc-inline-flex wlc-m-0 wlc-h-[2rem];
+
+	& > li {
+		@apply wlc-mb-0;
+	}
+
+	.picsart-dropdown-list {
+		button {
+			@apply wlc-px-6 wlc-py-1;
+		}
+	}
+}
+
+.picsart-dropdown.top .picsart-dropdown-list {
+	@apply wlc-bottom-[1.25rem];
+}
+
+.picsart-dropdown.bottom .picsart-dropdown-list {
+	@apply wlc-top-[1.125rem];
+}
+
+.picsart-dropdown:hover .picsart-dropdown-list {
+	@apply wlc-flex;
+}
+
+.picsart-dropdown-list {
+	@apply wlc-hidden wlc-flex-col wlc-gap-[0.25rem];
+	@apply wlc-absolute wlc-right-0 wlc-z-[9];
+	@apply wlc-rounded-lg;
+	@apply wlc-bg-accents-tertiary wlc-px-[0.5rem] wlc-py-[0.375rem];
+}
+
+.picsart-dropdown-list li {
+	@apply wlc-mb-0;
+}
+
+.picsart-dropdown-list a,
+.picsart-dropdown-list button {
+	@apply wlc-cursor-pointer;
+	@apply wlc-text-xs wlc-text-black wlc-font-semibold;
+	@apply wlc-p-0 wlc-border-none;
+	@apply hover:wlc-text-accents-secondary;
+}
+
+.picsart-onbording-list {
+	@apply wlc-pt-[0.875rem];
+}
+
+.picsart-onbording-list li span {
+	@apply wlc-text-sm wlc-font-medium wlc-text-old-colors wlc-block wlc-pl-8;
+}
+
+.picsart-onbording-list li {
+	@apply wlc-relative;
+}
+
+.picsart-onbording-list li::before {
+	@apply wlc-content-[''] wlc-absolute wlc-left-0 wlc-top-0 wlc-w-4 wlc-h-4;
+	@apply wlc-bg-checkbox-light wlc-bg-no-repeat wlc-bg-contain;
+	@apply wlc-w-[1.5rem] wlc-h-[1.5rem];
+}
+
+.picsart-onbording-list li.is_checked::before {
+	@apply wlc-bg-checkbox-dark;
+}
+
+.picsart-link {
+	@apply wlc-text-sm wlc-font-semibold wlc-text-accents-secondary wlc-ml-5 wlc-px-[0.75rem] wlc-py-[0.375rem];
+}
+
+.picsart-feature-image .picsart-dropdown {
+	@apply wlc-m-0;
+}
+
+.picsart-button.list {
+	@apply wlc-m-0 wlc-p-0 wlc-bg-transparent wlc-border-none;
+	@apply wlc-text-accents-secondary wlc-text-[0.813rem] wlc-leading-[1.219rem] wlc-font-normal;
+	@apply wlc-items-baseline;
+
+	svg path {
+		@apply wlc-fill-accents-secondary;
+	}
+}

@@ -1,0 +1,128 @@
+# README
+# Make sure:
+# - Repository CI/CD variables (repository->settings->CI/CD->Variables) are correct set:
+#   - $SSH_PRIVATE_KEY_staging
+#   - $SSH_USER_staging
+#   - $SSH_ADDRESS_staging
+# - Server to which the deployment is performed has a correct public key
+# - Ssh user is able to execute "docker compose" or "docker-compose", if not you should contact with the server admin
+
+stages:
+  - lint
+  - tests
+  - deploy
+
+lint:
+  stage: lint
+  tags:
+    - docker-to-docker
+  image: php:8.2
+  before_script:
+    - apt update
+    - DEBIAN_FRONTEND=noninteractive apt -y install unzip zip git rsync openssh-client libzip-dev
+    - docker-php-ext-install zip
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_staging" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  script:
+    - cd ./
+
+  only:
+    - merge_requests
+
+tests:
+  stage: lint
+  tags:
+    - docker-to-docker
+  image: php:8.2
+  before_script:
+    - apt update
+    - DEBIAN_FRONTEND=noninteractive apt -y install unzip zip git rsync openssh-client libzip-dev
+    - docker-php-ext-install zip
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_staging" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  script:
+    - composer build --working-dir ./
+
+  only:
+    - merge_requests
+
+deploy_staging:
+  stage: deploy
+  tags:
+    - docker-to-docker
+  image: php:8.2
+  when: on_success
+  environment:
+    name: staging
+  before_script:
+    - apt update
+    - DEBIAN_FRONTEND=noninteractive apt -y install unzip zip git rsync openssh-client libzip-dev
+    - docker-php-ext-install zip
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_staging" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    - "[ -f ~/.nvm/nvm.sh ] && [ -f ~/.nvm/bash_completion ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion"
+    - nvm install --lts
+  script:
+    # Build app
+    - composer build --working-dir ./
+    - nvm install
+    - nvm use
+    - npm install
+    - npm run build
+    - rm -rf node_modules
+
+    # Common variables
+    - |
+      _WOO_SERVER_BASE_PATH="$( ssh -o StrictHostKeyChecking=no $SSH_USER_WOO_staging@$SSH_ADDRESS_staging realpath httpdocs )"
+    - |
+      _WP_SERVER_BASE_PATH="$( ssh -o StrictHostKeyChecking=no $SSH_USER_WP_staging@$SSH_ADDRESS_staging realpath httpdocs )"
+
+    # Sync to WOO
+    - |
+      if [ -n "$_WOO_SERVER_BASE_PATH" ]; then
+        echo "Path: $_WOO_SERVER_BASE_PATH/wp-content/plugins/picsart-plugin/"
+        rsync -R -e "ssh -o StrictHostKeyChecking=no" -atvP \
+          assets \
+          dist \
+          includes \
+          vendor \
+          vendor_prefixed \
+          readme.txt \
+          languages \
+          picsart-ai-image-editor.php \
+          $SSH_USER_WOO_staging@$SSH_ADDRESS_staging:~/httpdocs/wp-content/plugins/picsart-ai-image-editor/
+      else
+        echo "ERROR: _WOO_SERVER_BASE_PATH is empty"
+        exit 1
+      fi
+
+    # Sync to WP
+    - |
+      if [ -n "$_WP_SERVER_BASE_PATH" ]; then
+        echo "Path: $_WP_SERVER_BASE_PATH/wp-content/plugins/picsart-plugin/"
+        rsync -R -e "ssh -o StrictHostKeyChecking=no" -atvP \
+          assets \
+          dist \
+          includes \
+          vendor \
+          vendor_prefixed \
+          readme.txt \
+          languages \
+          picsart-ai-image-editor.php \
+          $SSH_USER_WP_staging@$SSH_ADDRESS_staging:~/httpdocs/wp-content/plugins/picsart-ai-image-editor/
+      else
+        echo "ERROR: _WP_SERVER_BASE_PATH is empty"
+        exit 1
+      fi
+  only:
+    - staging
