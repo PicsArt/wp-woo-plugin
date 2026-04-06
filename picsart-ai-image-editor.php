@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Picsart AI Image Editor
- * Plugin URI: https://picsart.com/
+ * Plugin URI: https://console.picsart.io/
  * Description: Picsart AI Image Editor is a powerful WordPress plugin that leverages advanced AI technology to enhance and transform your images effortlessly. With a suite of AI-driven tools, you can easily edit, retouch, and create stunning visuals directly within your WordPress dashboard. Whether you're a blogger, photographer, or business owner, Picsart AI Image Editor simplifies the image editing process, allowing you to produce professional-quality images with just a few clicks.
  * Requires at least: 6.3
  * Requires PHP: 7.4
