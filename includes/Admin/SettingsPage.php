@@ -324,25 +324,30 @@ class SettingsPage {
 
 		$data = wp_slash( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		if ( isset( $data['page'] ) && 'picsart-settings' === $data['page'] ) {
+		if ( ! isset( $data['page'] ) || 'picsart-settings' !== $data['page'] ) {
+			return;
+		}
 
-			$api_key     = isset( $data['api_key'] ) ? sanitize_text_field( $data['api_key'] ) : null;
-			$property_id = isset( $data['property_id'] ) ? sanitize_text_field( $data['property_id'] ) : null;
+		if ( ! isset( $data['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $data['_wpnonce'] ) ), 'picsart_url_params' ) ) {
+			return;
+		}
 
-			if ( null !== $api_key || null !== $property_id ) {
-				$options = get_option( 'picsart_options', array() );
-				if ( ! is_array( $options ) ) {
-					$options = array();
-				}
-				if ( null !== $api_key ) {
-					$options['api_key'] = $api_key;
-				}
-				if ( null !== $property_id ) {
-					$options['property_id'] = $property_id;
-				}
+		$api_key     = isset( $data['api_key'] ) ? sanitize_text_field( $data['api_key'] ) : null;
+		$property_id = isset( $data['property_id'] ) ? sanitize_text_field( $data['property_id'] ) : null;
 
-				update_option( 'picsart_options', $options );
+		if ( null !== $api_key || null !== $property_id ) {
+			$options = get_option( 'picsart_options', array() );
+			if ( ! is_array( $options ) ) {
+				$options = array();
 			}
+			if ( null !== $api_key ) {
+				$options['api_key'] = $api_key;
+			}
+			if ( null !== $property_id ) {
+				$options['property_id'] = $property_id;
+			}
+
+			update_option( 'picsart_options', $options );
 		}
 	}
 

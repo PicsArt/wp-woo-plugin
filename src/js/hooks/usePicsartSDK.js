@@ -20,7 +20,8 @@ export const usePicsartSDK = (imageURL, onExport) => {
 			return;
 		}
 
-		const { AJAX_URL, PROPERTY_ID, API_KEY, CUSTOMER_ID } = window.PICSART;
+		const { AJAX_URL, PROPERTY_ID, API_KEY, CUSTOMER_ID, PROXY_NONCE } =
+			window.PICSART;
 
 		// Initialize Picsart SDK instance
 		const PicsartInstance = new window.Picsart({
@@ -45,7 +46,7 @@ export const usePicsartSDK = (imageURL, onExport) => {
 		PicsartInstance.onExport(onExport);
 
 		// Prepare and open the image
-		const finalImageURL = `${AJAX_URL}?action=picsart_proxy&url=${encodeURIComponent(imageURL)}`;
+		const finalImageURL = `${AJAX_URL}?action=picsart_proxy&nonce=${PROXY_NONCE}&url=${encodeURIComponent(imageURL)}`;
 
 		PicsartInstance.open({
 			imageUrl: finalImageURL,

@@ -22,7 +22,6 @@ class ImageProxy {
 	 */
 	public function run(): void {
 		add_action( 'wp_ajax_picsart_proxy', array( $this, 'picsart_proxy' ) );
-		add_action( 'wp_ajax_nopriv_picsart_proxy', array( $this, 'picsart_proxy' ) );
 	}
 
 	/**
@@ -31,7 +30,9 @@ class ImageProxy {
 	 * @return void
 	 */
 	public function picsart_proxy() {
-		$url       = sanitize_url( wp_unslash( $_GET['url'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		check_ajax_referer( 'picsart_proxy_nonce', 'nonce' );
+
+		$url       = sanitize_url( wp_unslash( $_GET['url'] ?? '' ) );
 		$image_url = esc_url_raw( $url );
 
 		if ( ! filter_var( $image_url, FILTER_VALIDATE_URL ) ) {

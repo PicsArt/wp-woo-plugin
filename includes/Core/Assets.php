@@ -96,9 +96,10 @@ class Assets {
 					'AJAX_URL'    => admin_url( 'admin-ajax.php' ),
 					'REST_NONCE'  => wp_create_nonce( 'wp_rest' ),
 					'REST_URL'    => rest_url() . PICSART_PLUGIN_API_NAMESPACE,
-					'API_KEY'     => $api_key,
-					'PROPERTY_ID' => $property_id,
-					'CUSTOMER_ID' => $customer_id,
+					'API_KEY'      => $api_key,
+					'PROPERTY_ID'  => $property_id,
+					'CUSTOMER_ID'  => $customer_id,
+					'PROXY_NONCE'  => wp_create_nonce( 'picsart_proxy_nonce' ),
 				)
 			);
 		}
