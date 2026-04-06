@@ -134,6 +134,14 @@ class SettingsPage {
 			'picsart_section_main'
 		);
 
+		add_settings_field(
+			'picsart_customer_id',
+			__( 'Picsart Customer ID', 'picsart-ai-image-editor' ),
+			array( $this, 'picsart_field_customer_id_render' ),
+			'picsart_settings',
+			'picsart_section_main'
+		);
+
 		add_settings_section(
 			'picsart_section_image',
 			__( 'Image Settings', 'picsart-ai-image-editor' ),
@@ -213,6 +221,28 @@ class SettingsPage {
 				'id'          => 'picsart_property_id',
 				'value'       => $options['property_id'] ?? '',
 				'description' => __( 'Enter your Picsart Property ID.', 'picsart-ai-image-editor' ),
+				'attributes'  => array(
+					'min'   => 0,
+					'style' => 'width:350px;',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Renders the input field for Customer ID.
+	 *
+	 * @return void
+	 */
+	public function picsart_field_customer_id_render(): void {
+		$options = get_option( 'picsart_options' );
+		Render::field(
+			array(
+				'type'        => 'text',
+				'name'        => 'picsart_options[customer_id]',
+				'id'          => 'picsart_customer_id',
+				'value'       => $options['customer_id'] ?? '',
+				'description' => __( 'Enter your Picsart Customer ID.', 'picsart-ai-image-editor' ),
 				'attributes'  => array(
 					'min'   => 0,
 					'style' => 'width:350px;',
@@ -347,6 +377,11 @@ class SettingsPage {
 		// Sanitize Property ID.
 		$clean_output['property_id'] = isset( $options['property_id'] )
 			? sanitize_text_field( $options['property_id'] )
+			: '';
+
+		// Sanitize Customer ID.
+		$clean_output['customer_id'] = isset( $options['customer_id'] )
+			? sanitize_text_field( $options['customer_id'] )
 			: '';
 
 		// Sanitize Watermark Image (assuming 'media' field saves an attachment ID).

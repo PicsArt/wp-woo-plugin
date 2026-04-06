@@ -1,6 +1,22 @@
+# Dependencies
+node_modules/
+vendor/
+vendor_prefixed/
+
+# Build output
+dist/
+
+# Build artifacts
+*.zip
+
+# OS files
 .DS_Store
-node_modules/*
-dist/*
-vendor/*
-vendor_prefixed/*
+
+# IDE
+.idea/
+
+# Local WordPress
+wordpress/
+
+# Misc
 sync.js

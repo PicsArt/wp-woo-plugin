@@ -20,13 +20,13 @@ export const usePicsartSDK = (imageURL, onExport) => {
 			return;
 		}
 
-		const { AJAX_URL, PROPERTY_ID, API_KEY } = window.PICSART;
+		const { AJAX_URL, PROPERTY_ID, API_KEY, CUSTOMER_ID } = window.PICSART;
 
 		// Initialize Picsart SDK instance
 		const PicsartInstance = new window.Picsart({
 			propertyId: PROPERTY_ID,
 			apiKey: API_KEY,
-			customerId: 'picsart.io',
+			customerId: CUSTOMER_ID,
 			containerId: 'picsart-editor-sdk',
 			exportType: 'blob',
 			mode: 'image',

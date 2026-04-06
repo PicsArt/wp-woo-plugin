@@ -36,6 +36,7 @@ class Assets {
 		$options     = get_option( 'picsart_options' );
 		$api_key     = $options['api_key'] ?? '';
 		$property_id = $options['property_id'] ?? '';
+		$customer_id = $options['customer_id'] ?? '';
 
 		$plugin_dist_path = plugin_dir_path( PICSART_PLUGIN_FILE ) . 'dist/';
 		$plugin_dist_url  = plugin_dir_url( PICSART_PLUGIN_FILE ) . 'dist/';
@@ -97,6 +98,7 @@ class Assets {
 					'REST_URL'    => rest_url() . PICSART_PLUGIN_API_NAMESPACE,
 					'API_KEY'     => $api_key,
 					'PROPERTY_ID' => $property_id,
+					'CUSTOMER_ID' => $customer_id,
 				)
 			);
 		}
