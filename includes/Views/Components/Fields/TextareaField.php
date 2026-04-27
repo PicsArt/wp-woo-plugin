@@ -13,12 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $picsart_ai_image_editor_args = $args;
 
-$picsart_ai_image_editor_ai_image_editor_attr_string = \PICSART\Helpers\Render::build_html_attr(
-	array(
-		'id'   => $picsart_ai_image_editor_args['id'],
-		'name' => $picsart_ai_image_editor_args['name'],
-	) + ( $picsart_ai_image_editor_args['attributes'] ?? array() )
-);
+$picsart_ai_image_editor_attrs = array(
+	'id'   => $picsart_ai_image_editor_args['id'],
+	'name' => $picsart_ai_image_editor_args['name'],
+) + ( $picsart_ai_image_editor_args['attributes'] ?? array() );
 
 if ( ! empty( $picsart_ai_image_editor_args['label'] ) ) :
 	?>
@@ -29,7 +27,7 @@ if ( ! empty( $picsart_ai_image_editor_args['label'] ) ) :
 endif;
 
 ?>
-<textarea <?php echo $picsart_ai_image_editor_ai_image_editor_attr_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<textarea<?php \PICSART\Helpers\Render::echo_html_attrs( $picsart_ai_image_editor_attrs ); ?>>
 	<?php echo esc_textarea( $picsart_ai_image_editor_args['value'] ); ?>
 </textarea>
 

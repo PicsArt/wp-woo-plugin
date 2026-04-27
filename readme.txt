@@ -3,7 +3,7 @@ Contributors: picsartenterprise
 Tags: image editor, ai, background removal, upscale, woocommerce
 Requires at least: 6.3
 Tested up to: 6.9
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -53,6 +53,16 @@ The Picsart Editor SDK is loaded from the Picsart CDN to provide the in-browser 
 * [Picsart Terms of Service](https://picsart.com/terms-and-conditions)
 * [Picsart Privacy Policy](https://picsart.com/privacy-policy)
 
+== Development ==
+
+The plugin source code and build tooling (webpack, Composer, PHP-Scoper) are maintained at: https://github.com/PicsArt/wp-woo-plugin
+
+To build the plugin from source:
+
+1. Clone the repository.
+2. Install dependencies: `composer install` and `npm install`.
+3. Build assets: `npm run build`.
+
 == Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory, or install directly through the WordPress plugin screen.
@@ -81,6 +91,12 @@ Yes. Images are sent to the Picsart API for AI processing (background removal, u
 
 == Changelog ==
 
+= 1.0.6 =
+* Moved inline admin scripts to enqueued asset files.
+* Hardened output escaping across admin views and components.
+* Restricted the image proxy to image content types.
+* Added link to public source repository.
+
 = 1.0.5 =
 * Added Customer ID to plugin settings.
 * Improved build process.
@@ -99,6 +115,9 @@ Yes. Images are sent to the Picsart API for AI processing (background removal, u
 * Admin settings page for API credentials and image options.
 
 == Upgrade Notice ==
+
+= 1.0.6 =
+Security and compliance improvements: scripts moved to enqueued files, stricter output escaping, image proxy hardening.
 
 = 1.0.5 =
 Added Customer ID setting for improved API authentication.

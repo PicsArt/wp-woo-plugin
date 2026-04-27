@@ -54,11 +54,36 @@ class SettingsPage {
 		add_action(
 			'admin_enqueue_scripts',
 			function ( $hook ) {
-				if ( 'woocommerce_page_picsart-settings' === $hook || 'toplevel_page_picsart-settings' === $hook ) {
-					wp_enqueue_media();
-					wp_enqueue_style( 'wp-color-picker' );
-					wp_enqueue_script( 'wp-color-picker' );
+				if ( 'woocommerce_page_picsart-settings' !== $hook && 'toplevel_page_picsart-settings' !== $hook ) {
+					return;
 				}
+
+				if ( ! defined( 'PICSART_PLUGIN_FILE' ) || ! defined( 'PICSART_PLUGIN_VERSION' ) ) {
+					return;
+				}
+
+				wp_enqueue_media();
+				wp_enqueue_style( 'wp-color-picker' );
+				wp_enqueue_script( 'wp-color-picker' );
+
+				$assets_url  = plugin_dir_url( PICSART_PLUGIN_FILE ) . 'assets/js/';
+				$assets_path = plugin_dir_path( PICSART_PLUGIN_FILE ) . 'assets/js/';
+
+				wp_enqueue_script(
+					'picsart-radio-colors-field',
+					$assets_url . 'radio-colors-field.js',
+					array( 'jquery', 'wp-color-picker' ),
+					file_exists( $assets_path . 'radio-colors-field.js' ) ? (string) filemtime( $assets_path . 'radio-colors-field.js' ) : PICSART_PLUGIN_VERSION,
+					true
+				);
+
+				wp_enqueue_script(
+					'picsart-media-library-field',
+					$assets_url . 'media-library-field.js',
+					array( 'jquery', 'media-views' ),
+					file_exists( $assets_path . 'media-library-field.js' ) ? (string) filemtime( $assets_path . 'media-library-field.js' ) : PICSART_PLUGIN_VERSION,
+					true
+				);
 			}
 		);
 	}

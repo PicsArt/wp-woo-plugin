@@ -19,16 +19,14 @@ if ( ! empty( $args['label'] ) ) :
 	<?php
 endif;
 
-$picsart_ai_image_editor_ai_image_editor_attr_string = \PICSART\Helpers\Render::build_html_attr(
-	array(
-		'id'    => $args['id'],
-		'name'  => $args['name'],
-		'type'  => $args['type'],
-		'value' => $args['value'],
-	) + ( $args['attributes'] ?? array() )
-);
+$picsart_ai_image_editor_attrs = array(
+	'id'    => $args['id'],
+	'name'  => $args['name'],
+	'type'  => $args['type'],
+	'value' => $args['value'],
+) + ( $args['attributes'] ?? array() );
 ?>
-	<input <?php echo $picsart_ai_image_editor_ai_image_editor_attr_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+	<input<?php \PICSART\Helpers\Render::echo_html_attrs( $picsart_ai_image_editor_attrs ); ?> />
 <?php if ( ! empty( $args['description'] ) ) : ?>
 	<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 <?php endif; ?>

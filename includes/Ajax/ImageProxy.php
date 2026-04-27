@@ -55,9 +55,19 @@ class ImageProxy {
 		}
 
 		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
-		is_array( $content_type ) ? header( 'Content-Type: ' . $content_type[0] ) : header( 'Content-Type: ' . $content_type );
+		if ( is_array( $content_type ) ) {
+			$content_type = $content_type[0] ?? '';
+		}
+		$content_type = is_string( $content_type ) ? trim( $content_type ) : '';
+
+		if ( '' === $content_type || 0 !== stripos( $content_type, 'image/' ) ) {
+			wp_send_json_error( __( 'Unsupported content type returned from upstream.', 'picsart-ai-image-editor' ) );
+		}
+
+		header( 'Content-Type: ' . sanitize_text_field( $content_type ) );
 		header( 'Access-Control-Allow-Origin: *' );
 
+		// Output is raw binary image data; escaping would corrupt it. Content-Type is validated above to be image/*.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wp_remote_retrieve_body( $response );
 		exit;

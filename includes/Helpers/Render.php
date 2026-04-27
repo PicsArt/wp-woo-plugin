@@ -53,22 +53,21 @@ class Render {
 	 * @return string Rendered HTML content.
 	 */
 	public static function render( string $path, mixed $args, bool $display ): string {
-		if ( file_exists( $path ) ) {
-			ob_start();
-			include $path;
-			$output = ob_get_clean();
-		}
-
-		if ( empty( $output ) ) {
-			$output = esc_attr( __( 'Component not found', 'picsart-ai-image-editor' ) );
+		if ( ! file_exists( $path ) ) {
+			if ( $display ) {
+				echo esc_html__( 'Component not found', 'picsart-ai-image-editor' );
+			}
+			return esc_html__( 'Component not found', 'picsart-ai-image-editor' );
 		}
 
 		if ( $display ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			print $output;
+			include $path;
+			return '';
 		}
 
-		return $output;
+		ob_start();
+		include $path;
+		return (string) ob_get_clean();
 	}
 
 	/**
@@ -146,26 +145,22 @@ class Render {
 	}
 
 	/**
-	 * Converts an associative array of HTML attributes into a string.
+	 * Outputs an associative array of HTML attributes as escaped attribute pairs.
+	 *
+	 * Each attribute name and value is escaped via esc_attr(), and the output is
+	 * printed directly. Use within an HTML tag where attributes are expected.
 	 *
 	 * @param array<string, string> $attributes Array of attributes (e.g., ['class' => 'btn']).
 	 *
-	 * @return string HTML-safe attributes string.
+	 * @return void
 	 */
-	public static function build_html_attr( array $attributes ): string {
-		return ' ' . implode(
-			' ',
-			array_map(
-				function ( $attr, $value ) {
-					if ( ! $value ) {
-						return '';
-					}
+	public static function echo_html_attrs( array $attributes ): void {
+		foreach ( $attributes as $attr => $value ) {
+			if ( '' === $value || null === $value || false === $value ) {
+				continue;
+			}
 
-					return sprintf( '%s="%s"', esc_attr( $attr ), esc_attr( $value ) );
-				},
-				array_keys( $attributes ),
-				$attributes
-			)
-		);
+			echo ' ' . esc_attr( (string) $attr ) . '="' . esc_attr( (string) $value ) . '"';
+		}
 	}
 }

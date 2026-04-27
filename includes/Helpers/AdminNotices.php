@@ -47,8 +47,43 @@ class AdminNotices {
 	 * @return void
 	 */
 	public function run(): void {
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_dismiss_script' ) );
 		add_action( 'admin_notices', array( $this, 'display_notices' ) );
 		add_action( 'wp_ajax_picsart_dismiss_notice', array( $this, 'dismiss_notice_ajax' ) );
+	}
+
+	/**
+	 * Registers the dismiss-notice script. It is enqueued on demand when a
+	 * dismissible notice is rendered.
+	 *
+	 * @since 1.0.6
+	 *
+	 * @return void
+	 */
+	public function register_dismiss_script(): void {
+		if ( ! defined( 'PICSART_PLUGIN_FILE' ) || ! defined( 'PICSART_PLUGIN_VERSION' ) ) {
+			return;
+		}
+
+		$asset_path = plugin_dir_path( PICSART_PLUGIN_FILE ) . 'assets/js/admin-notices.js';
+		$asset_url  = plugin_dir_url( PICSART_PLUGIN_FILE ) . 'assets/js/admin-notices.js';
+
+		wp_register_script(
+			'picsart-admin-notices',
+			$asset_url,
+			array( 'jquery' ),
+			file_exists( $asset_path ) ? (string) filemtime( $asset_path ) : PICSART_PLUGIN_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'picsart-admin-notices',
+			'picsartAdminNotices',
+			array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'picsart_dismiss_notice' ),
+			)
+		);
 	}
 
 	/**
@@ -331,11 +366,10 @@ class AdminNotices {
 		}
 
 		$class_string = implode( ' ', $classes );
-		$notice_id    = esc_attr( $notice['id'] );
-		$message      = wp_kses_post( $notice['message'] );
+		$notice_id    = $notice['id'];
 
 		echo '<div class="' . esc_attr( $class_string ) . '" data-notice-id="' . esc_attr( $notice_id ) . '">';
-		echo '<p>' . wp_kses_post( $message ) . '</p>';
+		echo '<p>' . wp_kses_post( $notice['message'] ) . '</p>';
 
 		if ( $notice['dismissible'] ) {
 			echo '<button type="button" class="notice-dismiss picsart-notice-dismiss" data-notice-id="' . esc_attr( $notice_id ) . '">';
@@ -345,50 +379,8 @@ class AdminNotices {
 
 		echo '</div>';
 
-		// Add inline JavaScript for AJAX dismissal.
 		if ( $notice['dismissible'] ) {
-			$this->add_dismiss_script();
+			wp_enqueue_script( 'picsart-admin-notices' );
 		}
-	}
-
-	/**
-	 * Adds JavaScript for notice dismissal.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	private function add_dismiss_script(): void {
-		static $script_added = false;
-
-		if ( $script_added ) {
-			return;
-		}
-
-		$script_added = true;
-		$nonce        = wp_create_nonce( 'picsart_dismiss_notice' );
-		?>
-		<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$(document).on('click', '.picsart-notice-dismiss', function(e) {
-				e.preventDefault();
-				var $notice = $(this).closest('.notice');
-				var noticeId = $(this).data('notice-id');
-				
-				$.post(ajaxurl, {
-					action: 'picsart_dismiss_notice',
-					notice_id: noticeId,
-					nonce: '<?php echo esc_js( $nonce ); ?>'
-				}, function(response) {
-					if (response.success) {
-						$notice.fadeOut(300, function() {
-							$(this).remove();
-						});
-					}
-				});
-			});
-		});
-		</script>
-		<?php
 	}
 }

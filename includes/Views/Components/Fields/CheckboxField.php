@@ -11,13 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$picsart_ai_image_editor_ai_image_editor_checked     = checked( $args['value'], '1', false );
-$picsart_ai_image_editor_ai_image_editor_attr_string = \PICSART\Helpers\Render::build_html_attr(
-	array(
-		'id'   => $args['id'],
-		'name' => $args['name'],
-	) + ( $args['attributes'] ?? array() )
-);
+$picsart_ai_image_editor_is_checked = (bool) checked( $args['value'], '1', false );
+$picsart_ai_image_editor_attrs      = array(
+	'id'   => $args['id'],
+	'name' => $args['name'],
+) + ( $args['attributes'] ?? array() );
 
 if ( ! empty( $args['label'] ) ) : ?>
 	<label for="<?php echo esc_attr( $args['id'] ); ?>">
@@ -25,8 +23,7 @@ if ( ! empty( $args['label'] ) ) : ?>
 	</label><br/>
 <?php endif; ?>
 
-	<input type="checkbox"
-			value="1" <?php echo esc_attr( $picsart_ai_image_editor_ai_image_editor_checked ); ?> <?php echo $picsart_ai_image_editor_ai_image_editor_attr_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+	<input type="checkbox" value="1"<?php echo $picsart_ai_image_editor_is_checked ? ' checked="checked"' : ''; ?><?php \PICSART\Helpers\Render::echo_html_attrs( $picsart_ai_image_editor_attrs ); ?> />
 
 <?php if ( ! empty( $args['description'] ) ) : ?>
 	<p class="description"><?php echo esc_html( $args['description'] ); ?></p>

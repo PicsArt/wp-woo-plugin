@@ -11,19 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$picsart_ai_image_editor_ai_image_editor_attr_string = \PICSART\Helpers\Render::build_html_attr(
-	array(
-		'id'   => $args['id'],
-		'name' => $args['name'],
-	) + ( $args['attributes'] ?? array() )
-);
+$picsart_ai_image_editor_attrs = array(
+	'id'   => $args['id'],
+	'name' => $args['name'],
+) + ( $args['attributes'] ?? array() );
 
 if ( ! empty( $args['label'] ) ) : ?>
 	<label for="<?php echo esc_attr( $args['id'] ); ?>">
 		<?php echo esc_html( $args['label'] ); ?>
 	</label><br/>
 <?php endif; ?>
-	<select <?php echo $picsart_ai_image_editor_ai_image_editor_attr_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<select<?php \PICSART\Helpers\Render::echo_html_attrs( $picsart_ai_image_editor_attrs ); ?>>
 		<?php
 		foreach ( $args['options'] as $picsart_ai_image_editor_ai_image_editor_val => $picsart_ai_image_editor_ai_image_editor_label ) :
 			$picsart_ai_image_editor_ai_image_editor_selected = selected( $args['value'], $picsart_ai_image_editor_ai_image_editor_val, false );

@@ -20,3 +20,10 @@ wordpress/
 
 # Misc
 sync.js
+
+# Build temp dir (created/removed by composer run zip)
+/picsart-ai-image-editor/
+
+# Claude Code (local notes / settings)
+CLAUDE.md
+.claude/settings.local.json
