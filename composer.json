@@ -9,7 +9,7 @@
   ],
   "require": {
     "php": ">=8.1",
-    "humbug/php-scoper": "0.17.7",
+    "humbug/php-scoper": "^0.18.19",
     "guzzlehttp/guzzle": "^7.0"
   },
   "require-dev": {
@@ -32,11 +32,11 @@
     }
   },
   "scripts": {
-    "init-env": "composer run pre-install-cmd && composer require humbug/php-scoper:0.17.7",
+    "init-env": "composer run pre-install-cmd && composer require humbug/php-scoper:^0.18.19",
     "build": "composer install --no-dev && composer run prefixer && composer run clear",
     "dev": "composer install && composer run prefixer-dev && composer run clear",
-    "prefixer": "rm -rf vendor_prefixed && vendor/bin/php-scoper add-prefix --output-dir vendor_prefixed && find vendor/* -type d ! -name \"composer\" -exec rm -rf {} + && composer dump-autoload",
-    "prefixer-dev": "rm -rf vendor_prefixed && vendor/bin/php-scoper add-prefix --output-dir vendor_prefixed",
+    "prefixer": "rm -rf vendor_prefixed && php -d memory_limit=2G vendor/humbug/php-scoper/bin/php-scoper add-prefix --output-dir vendor_prefixed && find vendor/* -type d ! -name \"composer\" -exec rm -rf {} + && composer dump-autoload",
+    "prefixer-dev": "rm -rf vendor_prefixed && php -d memory_limit=2G vendor/humbug/php-scoper/bin/php-scoper add-prefix --output-dir vendor_prefixed",
     "clear": "rm -rf vendor_prefixed/jetbrains && rm -rf vendor_prefixed/humbug && rm -rf vendor_prefixed/nikic && rm -rf vendor_prefixed/thecodingmachine",
     "tests": "composer install && composer phpcs-fix && composer phpcs && composer phpstan",
     "phpcs": "phpcs --standard=phpcs.xml.dist",
@@ -51,6 +51,8 @@
       "chmod +x .git/hooks/pre-commit || true"
     ]
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
