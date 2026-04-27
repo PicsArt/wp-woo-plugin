@@ -1,0 +1,49 @@
+body.picsart-modal-open #wpcontent,
+body.picsart-modal-open {
+	overflow: hidden;
+}
+
+.picsart-modal {
+	&.picsart-modal--full {
+		.picsart-modal__content-wrapper {
+			@apply wlc-inset-0 wlc-h-full wlc-w-full wlc-max-w-none wlc-rounded-none wlc-transform-none;
+			@apply md:wlc-inset-[2rem] md:wlc-w-[calc(100%_-_4rem)] md:wlc-h-[calc(100%_-_4rem)];
+		}
+	}
+
+	&.is-closing {
+		.picsart-modal__backdrop,
+		.picsart-modal__content-wrapper {
+			@apply wlc-opacity-0;
+		}
+
+		.picsart-modal__content-wrapper {
+			@apply wlc--translate-y-1/2 wlc--translate-x-[40%];
+		}
+	}
+}
+
+.picsart-modal__backdrop {
+	@apply wlc-fixed wlc-top-0 wlc-left-0 wlc-w-full wlc-h-full wlc-bg-black/60 wlc-opacity-100 wlc-z-[999998] wlc-transition-opacity wlc-duration-300 wlc-ease-out;
+}
+
+.picsart-modal__content-wrapper {
+	@apply wlc-fixed wlc-top-1/2 wlc-left-1/2 wlc--translate-x-1/2 wlc--translate-y-1/2;
+	@apply wlc-bg-white wlc-rounded wlc-shadow wlc-z-[999999] wlc-w-[90%] wlc-opacity-100 wlc-transition-[transform,opacity] wlc-duration-300 wlc-ease-out;
+}
+
+.picsart-modal__content {
+	@apply wlc-relative wlc-px-4 wlc-pt-12 wlc-pb-4;
+
+	&:has(#picsart-editor-sdk) {
+		@apply wlc-absolute wlc-inset-0 wlc-p-0 wlc-pt-12;
+	}
+}
+
+.picsart-modal__close-button {
+	@apply wlc-absolute wlc-top-[0.625rem] wlc-right-4 wlc-bg-transparent wlc-border-none wlc-text-2xl wlc-text-accents-secondary wlc-cursor-pointer;
+}
+
+#picsart-editor-sdk {
+	@apply wlc-h-full wlc-w-full;
+}

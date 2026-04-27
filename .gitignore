@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+vendor/
+vendor_prefixed/
+
+# Build output
+dist/
+
+# Build artifacts
+*.zip
+
+# OS files
+.DS_Store
+
+# IDE
+.idea/
+
+# Local WordPress
+wordpress/
+
+# Misc
+sync.js
+
+# Build temp dir (created/removed by composer run zip)
+/picsart-ai-image-editor/
+
+# Claude Code (local notes / settings)
+CLAUDE.md
+.claude/settings.local.json

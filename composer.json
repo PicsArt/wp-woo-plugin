@@ -1,0 +1,65 @@
+{
+  "name": "pic/picsart",
+  "description": "Picsart",
+  "authors": [
+    {
+      "name": "Jakub Jóźwiak WLC",
+      "email": "jjozwiak@whitelabelcoders.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "humbug/php-scoper": "^0.18.19",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "require-dev": {
+    "brain/monkey": "2.*",
+    "phpunit/phpunit": "^9.5",
+    "wp-coding-standards/wpcs": "3.1.0",
+    "phpcompatibility/php-compatibility": "9.3",
+    "phpstan/phpstan": "^1.10",
+    "szepeviktor/phpstan-wordpress": "v1.3",
+    "phpcsstandards/phpcsutils": "^1.0",
+    "php-stubs/woocommerce-stubs": "7.7",
+    "squizlabs/php_codesniffer": "^3.13.1"
+  },
+  "autoload": {
+    "classmap": [
+      "vendor_prefixed"
+    ],
+    "psr-4": {
+      "PICSART\\": "includes/"
+    }
+  },
+  "scripts": {
+    "init-env": "composer run pre-install-cmd && composer require humbug/php-scoper:^0.18.19",
+    "build": "composer install --no-dev && composer run prefixer && composer run clear",
+    "dev": "composer install && composer run prefixer-dev && composer run clear",
+    "prefixer": "rm -rf vendor_prefixed && php -d memory_limit=2G vendor/humbug/php-scoper/bin/php-scoper add-prefix --output-dir vendor_prefixed && find vendor/* -type d ! -name \"composer\" -exec rm -rf {} + && composer dump-autoload",
+    "prefixer-dev": "rm -rf vendor_prefixed && php -d memory_limit=2G vendor/humbug/php-scoper/bin/php-scoper add-prefix --output-dir vendor_prefixed",
+    "clear": "rm -rf vendor_prefixed/jetbrains && rm -rf vendor_prefixed/humbug && rm -rf vendor_prefixed/nikic && rm -rf vendor_prefixed/thecodingmachine",
+    "tests": "composer install && composer phpcs-fix && composer phpcs && composer phpstan",
+    "phpcs": "phpcs --standard=phpcs.xml.dist",
+    "phpcs-fix": "phpcbf",
+    "phpstan": "php -d memory_limit=2G ./vendor/bin/phpstan analyse",
+    "pre-install-cmd": "test -d vendor_prefixed || mkdir vendor_prefixed",
+    "all": "composer run pre-install-cmd && composer run build && composer run tests",
+    "zip": "npm run build && rm -rf picsart-ai-image-editor picsart-ai-image-editor.zip && mkdir picsart-ai-image-editor && rsync -a --exclude='.*' --exclude='node_modules' --exclude='wordpress' --exclude='*.zip' --exclude='CLAUDE.md' --exclude='sync.js' assets dist includes vendor vendor_prefixed languages src readme.txt composer.json composer.lock package.json package-lock.json webpack.config.js scoper.inc.php tailwind.config.js postcss.config.js picsart-ai-image-editor.php picsart-ai-image-editor/ && zip -r picsart-ai-image-editor.zip picsart-ai-image-editor && rm -rf picsart-ai-image-editor",
+    "zip:full": "composer run build && npm install && npm run build && rm -rf picsart-ai-image-editor picsart-ai-image-editor.zip && mkdir picsart-ai-image-editor && rsync -a --exclude='.*' --exclude='node_modules' --exclude='wordpress' --exclude='*.zip' --exclude='CLAUDE.md' --exclude='sync.js' assets dist includes vendor vendor_prefixed languages src readme.txt composer.json composer.lock package.json package-lock.json webpack.config.js scoper.inc.php tailwind.config.js postcss.config.js picsart-ai-image-editor.php picsart-ai-image-editor/ && zip -r picsart-ai-image-editor.zip picsart-ai-image-editor && rm -rf picsart-ai-image-editor",
+    "setup-git-hooks": [
+      "cp hooks/pre-commit .git/hooks/pre-commit || true",
+      "chmod +x .git/hooks/pre-commit || true"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "post-install-cmd": [
+    "@setup-git-hooks",
+    "npm install"
+  ]
+}
