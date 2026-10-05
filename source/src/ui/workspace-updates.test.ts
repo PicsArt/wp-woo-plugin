@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import type {State,Job} from '../../shared/types';
+import {workspaceUpdates} from './WorkspaceUpdates';
+import {notificationPreferences} from '../../shared/notification-preferences';
+const job=(id:string,status:Job['status'],archivedAt?:number)=>({id,status,archivedAt,approvedAt:1,quote:{kind:'video',source:{name:'Mug'}}} as Job);
+const state=(jobs:Job[])=>({auth:{authenticated:true,canGenerate:true},jobs,notificationPreferences:notificationPreferences()} as State);
+test('workspace updates follow categories and never surface archived jobs',()=>{const s=state([job('ready','REVIEW'),job('working','GENERATING'),job('archived','SAVED',1)]);assert.deepEqual(workspaceUpdates(s).map(i=>i.category),['ready','started']);s.notificationPreferences!.ready=false;assert.deepEqual(workspaceUpdates(s).map(i=>i.category),['started']);});
+test('uncertain requests offer inspection rather than a blind retry',()=>{const s=state([job('unknown','UNKNOWN_SUBMISSION')]);const update=workspaceUpdates(s)[0];assert.equal(update.category,'attention');assert.match(update.text,/history card before retrying/);s.notificationPreferences!.attention=false;assert.deepEqual(workspaceUpdates(s),[]);assert.equal(s.jobs[0].status,'UNKNOWN_SUBMISSION');});
+test('connection recovery and WordPress export states are distinct',()=>{const s=state([job('saved','SAVED'),job('pending','IMPORTING'),job('attached','ATTACHED')]);s.auth.requiresReconnect=true;assert.deepEqual(workspaceUpdates(s).map(i=>i.category),['setup','exports','delayed','exports']);});

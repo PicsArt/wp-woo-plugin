@@ -1,0 +1,44 @@
+{
+  "name": "picsart-wordpress-product-videos",
+  "type": "module",
+  "version": "1.1.2",
+  "scripts": {
+    "dev": "node --import tsx scripts/dev.ts",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/server/*.test.ts src/ui/*.test.ts shared/*.test.ts",
+    "package": "npm run build && node scripts/package.mjs",
+    "stop": "node scripts/stop.mjs",
+    "clean:environment": "node scripts/clean.mjs",
+    "check:catalog": "tsx scripts/check-catalog.ts",
+    "predev": "node scripts/setup.mjs && npm run build",
+    "pretest": "node scripts/setup.mjs",
+    "test:integration": "node --import tsx scripts/smoke.ts",
+    "worker:once": "node --import tsx src/server/worker-command.ts",
+    "serve": "node --import tsx scripts/serve.ts"
+  },
+  "dependencies": {
+    "@picsart/ai-sdk": "6.2.3",
+    "image-size": "^2.0.2",
+    "jose": "^6.2.12",
+    "typescript": "^5.8.3",
+    "zod": "^4.6.2",
+    "gifenc": "1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@wp-playground/cli": "3.1.54",
+    "esbuild": "^0.28.0",
+    "node": "^24.21.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.23.13",
+    "omggif": "1.0.10"
+  },
+  "private": true,
+  "overrides": {
+    "qs": "^6.16.0"
+  }
+}
