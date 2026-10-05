@@ -5,3 +5,5 @@ node_modules/
 dist/
 .DS_Store
 *.sqlite*
+source/plugin/
+picsart-ai-image-editor-review.zip

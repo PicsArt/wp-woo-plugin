@@ -23,3 +23,13 @@ See [source/README.md](source/README.md) for browser asset rebuild instructions,
 The source snapshot passed the app build/package gate, 147 application tests before the onboarding change, native WordPress integration tests including Dashboard/Posts/Pages/Media/WooCommerce onboarding, and five onboarding connection-state tests. The current package has not completed a fresh Plugin Check run because the local Docker daemon was unavailable. Public production enrollment, full remote catalog/embed contracts, and final live support verification remain release work.
 
 WordPress.org publication uses plugin ZIP submission and, after approval, WordPress.org SVN. GitHub hosts this reviewable source copy; it does not replace directory submission.
+
+## Contributing and support
+
+- [Contribution guide and project structure](CONTRIBUTING.md)
+- [Release and packaging guide](RELEASING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Private security reporting](SECURITY.md)
+- [Picsart Support](https://support.picsart.com/hc/en-us/requests/new)
+
+First-party plugin code is GPL-2.0-or-later; see [LICENSE.txt](LICENSE.txt). Third-party components retain their own notices. The contribution and conduct guidance is adapted from the [Picsart Figma plugin](https://github.com/PicsArt/picsart-figma-plugin); its MIT project license does not replace this plugin's GPL license.

@@ -30,3 +30,9 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 OR OTHER DEALINGS IN THE SOFTWARE.
+
+Documentation adapted from PicsArt/picsart-figma-plugin:
+Copyright (c) 2024-2026 PicsArt, Inc.
+Licensed under the MIT License reproduced above. This attribution applies to
+the adapted documentation, not a relicensing of the WordPress plugin.
+The Code of Conduct also retains its Contributor Covenant attribution.

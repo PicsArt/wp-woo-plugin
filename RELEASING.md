@@ -1,0 +1,46 @@
+# Releasing Picsart for WordPress and WooCommerce
+
+GitHub stores the public source and review history. WordPress.org uses a ZIP submission and, after approval, its SVN repository. WooCommerce Marketplace submission is a separate review. A merged GitHub PR is not marketplace approval.
+
+## Release readiness
+
+This snapshot is for source review. Resolve production service provisioning and automatic installation enrollment before public rollout. Verify the current service disclosures, account connection, support destinations, and remaining media catalog/embed requirements. Background removal and upscaling are Phase 2; do not advertise them as available.
+
+## Select and validate the commit
+
+1. Start from reviewed `main`, fetch, and confirm a clean working tree. Preserve any local work.
+2. Reconcile public changes with the canonical upstream WordPress app before importing a new distribution. Record the upstream commit; never copy monorepo history or companion-service secrets to GitHub.
+3. Follow [CONTRIBUTING.md](CONTRIBUTING.md) to rebuild and typecheck public browser source. Run relevant included tests and report their actual scope.
+4. Maintainers run the upstream package gate, native WordPress tests, service tests, and a fresh WordPress Plugin Check against the final ZIP. Prior results do not certify a changed package.
+5. Test a fresh installation from the ZIP, activation/deactivation, uninstall content handling, permissions, disconnected/connected onboarding, and image/video accept/regenerate flows. Check blog, Page/custom post type, and WooCommerce integration. Use authorized live test accounts only.
+
+## Version and artifacts
+
+Keep the plugin header version, `readme.txt` stable tag/changelog, and `source/package.json` and lockfile versions consistent. Use a new version for a released change; do not replace an already published tag or artifact. Use a versioned Git tag on the reviewed commit when publishing.
+
+The authoritative release ZIP is produced by the upstream `scripts/package.mjs` allowlist, which also emits the distribution manifest. The public copy does not contain that packaging script. Reimport the resulting runtime assets and manifest together after review. `distribution-manifest.json` describes that imported ZIP; documentation-only GitHub commits do not change its hash.
+
+For a **local review ZIP**, the following command from the repository root includes only the runtime plugin and readable source:
+
+```bash
+review_zip="$PWD/picsart-ai-image-editor-review.zip"
+stage=$(mktemp -d)
+mkdir "$stage/picsart-ai-image-editor"
+cp -R picsart-ai-image-editor.php uninstall.php includes assets images readme.txt LICENSE.txt THIRD-PARTY-NOTICES.txt source "$stage/picsart-ai-image-editor/"
+# Exclude local build dependencies and intermediate output if source was built here.
+(cd "$stage" && zip -qr "$review_zip" picsart-ai-image-editor -x '*/node_modules/*' '*/source/plugin/*')
+```
+
+Inspect the archive before sharing. It must have one top-level `picsart-ai-image-editor/` directory, the correct main PHP file, and no `.env`, `.git`, local databases, credentials, or installed dependencies. Extract and install that ZIP on a disposable site. Do not call this locally assembled review ZIP the manifest-verified upstream release artifact.
+
+## Publish
+
+- GitHub: publish a reviewed tag and attach the tested release ZIP, checksum, and user-facing release notes. Do not claim a release URL exists before verifying it.
+- WordPress.org: follow the [plugin submission guide](https://developer.wordpress.org/plugins/wordpress-org/planning-submitting-and-maintaining-plugins/). After approval, use the assigned SVN repository and [SVN guide](https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/). Keep stable tag, release tag, screenshots, and readme consistent.
+- WooCommerce: follow the current [Marketplace submission guidance](https://woocommerce.com/submit-product/); document WooCommerce compatibility and complete the applicable review separately.
+
+Publishing credentials belong in the approved credential manager or release environment, never the repository. These docs do not configure automatic deployment.
+
+## Rollback
+
+Retain the last tested ZIP and its commit/checksum. Diagnose whether a problem is plugin-side or service-side before changing either. For public fixes, create a reviewed revert or repair, assign a new version, repeat validation, and publish through the same channels. Do not rewrite public tags or delete merchant content as a rollback strategy.
