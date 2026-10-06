@@ -13,12 +13,21 @@ Edit image copies in WordPress and connect a configured Picsart service to creat
 == Description ==
 Picsart Commerce adds local image tools to the Media Library and product editing workflows. Crop, resize, rotate, adjust colour, export JPEG/PNG/WebP, and add a brand mark or protective watermark. Local tools run in your browser and do not spend generation credits. Edits create new attachments and preserve the original. Applying a clean image copy to a supported destination is a separate action, with a restore receipt that refuses to overwrite later changes.
 
-Use Picsart from WordPress with your Picsart account, plan and credits. Cloud tools require a connected Picsart account, explicit permission for cloud access, and a configured service connection. It supports product-photo selection, account and credit information, Picsart Drive browsing, exact generation-price approval, reviewed image/video copies, saved settings, history export, and browser music/GIF exports. WordPress does not collect subscription payments. Manage your subscription and credits at https://picsart.com/.
+Use Picsart from WordPress with your Picsart account, plan and credits. Cloud tools require a connected Picsart account, explicit permission for cloud access, and an available Picsart service connection. It supports product-photo selection, account and credit information, Picsart Drive browsing, exact generation-price approval, reviewed image/video copies, saved settings, history export, and browser music/GIF exports. WordPress does not collect subscription payments. Manage your subscription and credits at https://picsart.com/.
 
 Remove background and Enhance use the connected Picsart account and display the exact credit price on their buttons before approval. Review each result before accepting it. No shared installation API key is used. The embedded Picsart editor remains deferred. Other AI generation uses the price approved for that operation. This candidate must not be submitted as a completed cloud integration until the release checklist is closed.
 
+= WordPress, WooCommerce and All in One SEO =
+One Picsart Commerce plugin serves standard WordPress sites and sites using WooCommerce and/or All in One SEO (AIOSEO). Neither optional plugin is required for general WordPress media workflows.
+
+* WordPress: create and edit media for supported post, page, custom post type and featured-image workflows through the WordPress Media Library and media picker.
+* WooCommerce: enhance product image, gallery and product-video workflows, with product-specific media selection and supported placement controls when WooCommerce is active.
+* All in One SEO: create or edit an image with Picsart, save it to the WordPress Media Library, then select it in AIOSEO's social/Open Graph image settings. Picsart actions are available where the standard WordPress media picker is used. AIOSEO controls its own image settings and metadata; Picsart does not automatically change SEO settings or guarantee compatibility with custom image pickers.
+
+These integrations share the same account connection, consent, quote approval and result-review flow. Cloud features require the Picsart connection described below. Installed AIOSEO and WooCommerce versions must be included in final integration testing.
+
 = How the Picsart service works =
-Picsart supplies the remote AI processing, account authorization, credit pricing and Drive storage used by cloud features. Picsart production services use https://api.picsart.com/ and https://picsart.com/. This version sends WordPress requests through a configured integration backend; it does not yet connect a newly installed site directly to those production APIs without setup.
+Picsart supplies the remote AI processing, account authorization, credit pricing and Drive storage used by cloud features. Picsart production services use https://api.picsart.com/ and https://picsart.com/. This candidate uses an integration backend for cloud requests. Automatic connection setup for a fresh installation is not yet complete and remains a release blocker; end users and marketplace reviewers should not be asked to configure internal service settings.
 
 After you allow cloud access, Connect Picsart starts OAuth device authorization. The plugin displays a code and opens the Picsart approval page; you approve the matching code there. The integration backend checks the authorization result and stores the account credentials used for subsequent requests. Your Picsart password is not entered into WordPress. Connection alone does not generate media or purchase credits.
 
@@ -49,7 +58,7 @@ Readable TypeScript, TSX and CSS source, package lockfile, build script and gife
 == Installation ==
 1. Upload the picsart-ai-image-editor folder to wp-content/plugins/ and activate it.
 2. Open Picsart in the WordPress menu. Tools become available after connecting; editing requires permission to upload and edit the selected media.
-3. Cloud features require administrator-provisioned PICSART_SERVICE_URL, PICSART_BRIDGE_SECRET and PICSART_INSTALLATION_ID in server configuration. Do not expose secrets in browser code. Production service URLs must use HTTPS. Managed provisioning is a release requirement still pending for this candidate.
+3. The supported public setup must be installation, activation and Connect Picsart through OAuth. End users and marketplace reviewers must not need internal server settings, shared secrets or installation identifiers. Automatic connection setup is incomplete in this review candidate; a working public connection must be delivered before submission.
 4. Give permission for cloud connections, then connect your Picsart account. Review the quoted price before any generation. Payments take place on picsart.com.
 
 == Frequently Asked Questions ==
