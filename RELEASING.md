@@ -62,3 +62,15 @@ Official installation references: https://formulae.brew.sh/formula/php and https
 ## Listing artwork
 
 The `.wordpress-org/` directory contains the seven screenshot files matching readme captions, standard and Retina banners, and icons. Copy its PNG files to WordPress.org SVN's root `assets/` directory after approval. Exclude `.wordpress-org/` from the runtime ZIP. See `.wordpress-org/README.md` for provenance and the interim screenshot limitation.
+
+## Completeness check before WordPress.org submission
+
+Documentation describes the current implementation; it does not certify a complete production integration. Before submitting the ZIP:
+
+- Complete and verify installation-to-OAuth setup against the production service, without requiring merchants to obtain internal bridge credentials.
+- Verify consent, account connection/disconnection, exact quotes and approval, image/video result review, imports and supported destinations on a fresh installation.
+- Verify error and recovery behavior, permissions, and the behavior of retained local/cloud records on disconnect and uninstall.
+- Run Plugin Check on the final ZIP and resolve actionable findings. Reconcile readme claims and screenshots with the shipped behavior.
+- Keep unavailable features clearly excluded from claims. Public free-to-edit catalog/remote embed support is not established by the current source.
+
+These are release checks, not a claim that WordPress.org mandates this particular backend architecture. See https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/ (external services, privacy and completeness).
