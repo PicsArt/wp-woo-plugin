@@ -22,7 +22,7 @@ Version: 1.1.2 (review snapshot). Background removal and enhancement are restore
 
 Package this repository's plugin files inside a `picsart-ai-image-editor` directory, zip that directory, and use **Plugins → Add New → Upload Plugin** in WordPress. Activate **Picsart**. The native onboarding notice links to the connection flow.
 
-**Public rollout is not yet ready:** cloud features require a provisioned companion service. Automatic production installation enrollment and the production service destination remain unresolved. Merging this source-review PR does not establish marketplace approval or a working public service deployment. Do not ask merchants to configure internal bridge credentials.
+**Public rollout is not yet ready:** automatic connection setup for a fresh installation remains incomplete. The supported public experience must be install, activate and connect a Picsart account through OAuth. End users and marketplace reviewers must not configure internal service settings, shared secrets or installation identifiers. Completing that experience is a release requirement, not a reviewer setup task. Merging this source-review PR does not establish marketplace approval or a working public service deployment.
 
 ## Source and license
 

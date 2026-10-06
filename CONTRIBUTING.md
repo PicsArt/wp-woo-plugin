@@ -39,7 +39,7 @@ node --import tsx --test src/ui/active-image.test.ts src/ui/history.test.ts
 
 See [source/README.md](source/README.md) for copying build output into the runtime plugin. The copied package manifest retains upstream scripts: `npm test`, `npm run dev`, `npm run package`, and server/integration commands depend on files absent from this public distribution. Do not use them as public-repository validation gates. Some native-block tests also reference the upstream directory layout. There is no `npm run gate` here.
 
-To test installation, place the runtime plugin in `wp-content/plugins/picsart-ai-image-editor/` and activate it. Cloud testing needs an approved provisioned test service and account. Do not add shared API keys or expose service secrets to make a local test pass. Public automatic enrollment is not implemented in this snapshot.
+To test installation, place the runtime plugin in `wp-content/plugins/picsart-ai-image-editor/` and activate it. Cloud testing needs an approved provisioned test service and account. Do not add shared API keys or expose service secrets to make a local test pass. Public automatic enrollment is not implemented in this snapshot. Internal test-service setup is for maintainers only; end users and marketplace reviewers must receive a working install-and-connect experience without internal configuration.
 
 ## Implementation rules
 
