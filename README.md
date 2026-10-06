@@ -2,6 +2,16 @@
 
 Picsart Commerce adds AI image generation, image editing, video generation, and media tools to WordPress and WooCommerce. Users connect their Picsart account and explicitly approve generation costs and review results before importing them.
 
+## WordPress and optional integrations
+
+One Picsart Commerce plugin supports standard WordPress and enhances workflows when WooCommerce and/or All in One SEO (AIOSEO) are installed:
+
+- **WordPress:** supported Media Library, post, page, custom post type and featured-image workflows.
+- **WooCommerce:** product image, gallery and product-video workflows, with product selection and supported placement controls.
+- **All in One SEO:** generate or edit an image, save it to the WordPress Media Library, and select it for social/Open Graph images in AIOSEO. The integration uses the standard WordPress media picker; it does not automatically modify AIOSEO metadata or cover every custom picker.
+
+Neither optional plugin is required for general WordPress media use. Cloud tools share the setup, consent, OAuth, quote approval and result-review requirements in [readme.txt](readme.txt). Final installed-version compatibility testing remains required; this description is not a claim that those tests have passed.
+
 ## Review snapshot
 
 This public plugin copy comes from the canonical GitLab `picsart/pa-plugins` repository at commit `a9784ecedb6022dfb7e70a3185997e3163e7e97c` (GitLab MR73 feature branch; not yet merged into GitLab main), app `apps/wordpress-product-videos`. It contains the allowlisted WordPress distribution and readable browser source, not the private companion-service implementation or repository history.

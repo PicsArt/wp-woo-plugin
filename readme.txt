@@ -17,6 +17,15 @@ Use Picsart from WordPress with your Picsart account, plan and credits. Cloud to
 
 Remove background and Enhance use the connected Picsart account and display the exact credit price on their buttons before approval. Review each result before accepting it. No shared installation API key is used. The embedded Picsart editor remains deferred. Other AI generation uses the price approved for that operation. This candidate must not be submitted as a completed cloud integration until the release checklist is closed.
 
+= WordPress, WooCommerce and All in One SEO =
+One Picsart Commerce plugin serves standard WordPress sites and sites using WooCommerce and/or All in One SEO (AIOSEO). Neither optional plugin is required for general WordPress media workflows.
+
+* WordPress: create and edit media for supported post, page, custom post type and featured-image workflows through the WordPress Media Library and media picker.
+* WooCommerce: enhance product image, gallery and product-video workflows, with product-specific media selection and supported placement controls when WooCommerce is active.
+* All in One SEO: create or edit an image with Picsart, save it to the WordPress Media Library, then select it in AIOSEO's social/Open Graph image settings. Picsart actions are available where the standard WordPress media picker is used. AIOSEO controls its own image settings and metadata; Picsart does not automatically change SEO settings or guarantee compatibility with custom image pickers.
+
+These integrations share the same account connection, consent, quote approval and result-review flow. Cloud features require the configured service described below. Installed AIOSEO and WooCommerce versions must be included in final integration testing.
+
 = How the Picsart service works =
 Picsart supplies the remote AI processing, account authorization, credit pricing and Drive storage used by cloud features. Picsart production services use https://api.picsart.com/ and https://picsart.com/. This version sends WordPress requests through a configured integration backend; it does not yet connect a newly installed site directly to those production APIs without setup.
 
