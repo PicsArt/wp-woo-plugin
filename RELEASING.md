@@ -4,7 +4,7 @@ GitHub stores the public source and review history. WordPress.org uses a ZIP sub
 
 ## Release readiness
 
-This snapshot is for source review. Resolve production service provisioning and automatic installation enrollment before public rollout. Verify the current service disclosures, account connection, support destinations, and remaining media catalog/embed requirements. Background removal and upscaling are Phase 2; do not advertise them as available.
+This snapshot is for source review. Resolve production service provisioning and automatic installation enrollment before public rollout. Verify the current service disclosures, account connection, support destinations, and remaining media catalog/embed requirements. Background removal and enhancement use connected-account OAuth and authoritative service quotes. Verify their current prices and permissions before release; do not promise universal free-plan entitlement. The imported feature branch still requires its recorded live analytics acceptance before GitLab merge.
 
 ## Select and validate the commit
 

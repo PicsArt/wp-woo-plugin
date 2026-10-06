@@ -57,7 +57,7 @@
                     var child=window.open(url.href,'_blank');if(!child)return;
                     var busy=false;
                     function receive(event){var data=event.data;if(event.origin!==location.origin||event.source!==child||!data||data.type!=='picsart-insert'||data.token!==token||!Number.isInteger(data.id)||data.id<1||busy)return;
-                        busy=true;wp.apiFetch({path:'/wp/v2/media/'+data.id}).then(function(media){if(media.media_type!==kind)throw new Error('Unexpected media type');return selectAttachment(frame,original,media.id);}).then(cleanup).catch(function(){busy=false;});
+                        busy=true;wp.apiFetch({path:'/wp/v2/media/'+data.id}).then(function(media){if(media.media_type!==(kind==='image'?'image':'file')||typeof media.mime_type!=='string'||!media.mime_type.startsWith(kind+'/'))throw new Error('Unexpected media type');return selectAttachment(frame,original,media.id);}).then(cleanup).catch(function(){busy=false;});
                     }
                     function cleanup(){window.removeEventListener('message',receive);clearInterval(timer);}
                     window.addEventListener('message',receive);var timer=setInterval(function(){if(child.closed)cleanup();},1000);frame.once('close',cleanup);
@@ -111,15 +111,5 @@
             });
         });
     };
-    // Use the editor's native external media category contract; captions retain attribution.
-    wp.domReady ? wp.domReady(registerCatalog) : setTimeout(registerCatalog,0);
-    function registerCatalog(){
-        var editor;try{editor=wp.data.dispatch('core/block-editor');}catch(e){return;}
-        if(!editor||!editor.registerInserterMediaCategory)return;
-        ['image','video'].forEach(function(type){editor.registerInserterMediaCategory({
-            name:'picsart-featured-'+type,labels:{name:__(type==='image'?'Picsart featured images':'Picsart featured videos'),search_items:__('Search this featured page')},mediaType:type,isExternalResource:true,
-            fetch:async function(query){var rows=await wp.apiFetch({path:'/picsart/v1/catalog?page='+Math.max(1,query.page||1)});return rows.filter(function(row){return row.mediaType===type&&(!query.search||row.title.toLowerCase().includes(query.search.toLowerCase()));});},
-            getReportUrl:function(item){return 'https://picsart.com/i/'+encodeURIComponent(item.sourceId);}
-        });});
-    }
+    // Public catalog categories remain disabled until the supported reuse contract is available.
 })(window.wp);

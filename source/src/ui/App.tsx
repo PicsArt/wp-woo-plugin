@@ -1,3 +1,5 @@
+import {ImageToolActions} from './ImageToolActions';
+import {imageToolFor} from '../../shared/image-tools';
 import {recoverActiveImage,imageIsRunning} from './active-image';
 import {HelpPanels} from './HelpPanels';
 import {SupportPanel} from './SupportPanel';
@@ -36,11 +38,13 @@ import type {
   Product,
   Job,
   Source,
-
+  DeviceLoginStatus,
 } from "../../shared/types";
 import { platformEndpoint, platformFetch } from "./platform";
 import { normalizePhoto } from "./photo";
 import { getCreditShortfall } from "./credits";
+import { DeviceSignIn } from "./DeviceSignIn";
+import { applyDeviceStatus, pendingView, type DeviceView } from "./device-sign-in";
 const schemaCache = new Map<string, ModelSchema>(Object.entries(bundledModels.schemas) as [string, ModelSchema][]);
 let queue: Promise<unknown> = Promise.resolve();
 class RequestError extends Error {
@@ -63,7 +67,8 @@ async function request<T>(
   body?: unknown,
   signal?: AbortSignal,
 ): Promise<T> {
-  const independent = path === "/quotes" || path === "/image-quotes" || (body === undefined && /^\/drive\/(browse|media)(?:\?|$)/.test(path));
+  // Device sign-in must not wait behind a long /tick: the code expires in minutes.
+  const independent = path === "/quotes" || path === "/image-quotes" || path.startsWith("/auth/device/") || (body === undefined && /^\/drive\/(browse|media)(?:\?|$)/.test(path));
   const task = (independent ? Promise.resolve() : queue)
     .catch(() => {})
     .then(async () => {
@@ -84,9 +89,8 @@ async function request<T>(
               ? body
               : JSON.stringify(body),
       };
-      // Authentication may need to outlast an interrupted 120-second lease.
       // Only explicit BUSY responses are retried; unknown mutations are not.
-      const busyDeadline=Date.now()+ (path.startsWith('/auth/') ? 130000 : 26000);
+      const busyDeadline=Date.now()+26000;
       for (let attempt = 0; ; attempt++) {
         const r = await platformFetch(endpoint(path), init);
         if (!r.ok) {
@@ -510,7 +514,9 @@ export default function App() {
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [driveOpen, setDriveOpen] = useState(false);
   useEffect(() => {setDriveOpen(false);requestAnimationFrame(()=>document.getElementById('picsart-video-settings')?.focus());}, [state?.auth.subject]);
-  const [loginUrl, setLoginUrl] = useState("");
+  const [device, setDevice] = useState<DeviceView>();
+  // Attempts this tab finished or cancelled; a state read already in flight must not reopen them.
+  const closedAttempts = useRef(new Set<string>());
   const modelSync = useModelSync(state?.auth.subject, request);
   const models = modelSync.catalog?.video ?? bundledModels.video;
   const appliedDefault=useRef<string>();
@@ -597,6 +603,8 @@ export default function App() {
       setModel(current => current || "seedance-2.5");
     }
     setState(s);
+    const resumed = s.auth.pendingDevice;
+    if (resumed && !closedAttempts.current.has(resumed.attemptId)) setDevice(current => current ?? pendingView(resumed));
     if (s.auth.canGenerate && !new URLSearchParams(location.search).has("changeMedia")) setSource(current => current || s.sources[0]?.id || "");
     if (
       s.auth.authenticated &&
@@ -632,6 +640,44 @@ export default function App() {
       actionLock.current = false;
       setBusyAction("");
     }
+  }
+  function closeDevice() {
+    setDevice(current => {
+      if (current?.attemptId) closedAttempts.current.add(current.attemptId);
+      return undefined;
+    });
+  }
+  function deviceStatus(status: DeviceLoginStatus) {
+    const next = applyDeviceStatus(device, status);
+    if (next === device) return;
+    if (next === "connected" || next === undefined) {
+      closeDevice();
+      void refresh().catch(() => { /* The workspace poll retries. */ });
+    } else setDevice(next);
+  }
+  function connectPicsart() {
+    // Open the tab inside the click so popup blockers allow it; the code stays visible here for matching.
+    const tab = window.open("about:blank", "picsart-connect");
+    if (tab) {
+      tab.opener = null;
+      tab.document.title = "Connecting to Picsart…";
+      tab.document.body.textContent = "Preparing Picsart sign-in…";
+    }
+    void run(async () => {
+      try {
+        const started = await request<DeviceLoginStatus>("/auth/device/start", {});
+        // An earlier approval may finish instead of a new code starting.
+        if (started.status === "connected") { tab?.close(); closeDevice(); return; }
+        if (started.status !== "pending") throw new Error("Picsart sign-in could not start. Try again.");
+        if (device?.attemptId && device.attemptId !== started.attemptId) closedAttempts.current.add(device.attemptId);
+        setDevice(pendingView(started));
+        if (started.finishing) tab?.close();
+        else if (tab && !tab.closed) tab.location.replace(started.verificationUriComplete ?? started.verificationUri);
+      } catch (error) {
+        tab?.close();
+        throw error;
+      }
+    }, "connect");
   }
   useEffect(() => {
     let active = true;
@@ -883,7 +929,7 @@ export default function App() {
     return (
       <main className="live-main">
 
-        <SupportPanel/><h1>Product Videos</h1>
+        <SupportPanel/><h1>Picsart Commerce</h1>
         <p>{error || pollError || "Connecting to your workspace…"}</p>
         <a href={studioLink('images')}>Open local image tools</a> <a href={studioLink('video-tools')}>Work with your own video</a>
         {(error||pollError)&&<button onClick={()=>void refresh().catch(e=>setPollError(e instanceof Error?e.message:"Could not refresh the workspace."))}>Retry connection</button>}
@@ -926,7 +972,7 @@ export default function App() {
         <div className="title-account-row">
           <h1>{workspaceView==='settings'?'Settings':!state.auth.canGenerate?'Connect Picsart':workspaceView==='images'?'Image generation':workspaceView==='history'?'History':'Video generation'}</h1>
             {!state.auth.canGenerate ? (
-              <button
+              !device && <button
                 className="picsart-connect-button"
                 type="button"
                 aria-busy={busyAction === "connect" || busyAction === "access"}
@@ -936,40 +982,13 @@ export default function App() {
                     void run(async () => {}, 'access');
                     return;
                   }
-                  const popup = window.open(
-                    "about:blank",
-                    "picsart-connect",
-                    "popup",
-                  );
-                  if (popup) {
-                    popup.opener = null;
-                    popup.document.title = "Connecting to Picsart…";
-                    popup.document.body.textContent =
-                      "Preparing Picsart sign-in…";
-                  }
-                  void run(async () => {
-                    try {
-                      const a = state.auth.requiresSessionReset
-                        ? await request<{url:string}>("/auth/repair", {})
-                        : await request<{url:string}>("/auth/start", await request<{preparation:string}>("/auth/prepare", {}));
-                      if (popup && !popup.closed) {
-                        popup.location.replace(a.url);
-                        setLoginUrl(a.url);
-                      } else {
-                        setLoginUrl(a.url);
-                      }
-                    } catch (error) {
-                      popup?.close();
-                      throw error;
-                    }
-                  }, "connect");
+                  connectPicsart();
                 }}
               >
                 {busyAction === "connect"
                   ? "Preparing sign-in…"
                   : busyAction === 'access' ? 'Checking access…'
                   : state.auth.authenticated && !state.auth.requiresReconnect && (state.creditError || state.generationError) ? 'Check access again'
-                  : state.auth.requiresSessionReset ? "Refresh Picsart permissions"
                   : state.auth.authenticated ? "Reconnect Picsart" : "Connect Picsart"}
               </button>
             ) : (
@@ -994,13 +1013,16 @@ export default function App() {
             </button>
           </div>
         )}
-          {!state.auth.canGenerate && loginUrl && (
-            <p>
-              <a href={loginUrl} target="_blank" rel="noopener noreferrer">
-                Continue to Picsart
-              </a>{" "}
-              to finish connecting your account.
-            </p>
+          {device && (
+            <DeviceSignIn
+              view={device}
+              request={request}
+              busy={busy}
+              onStatus={deviceStatus}
+              onRestart={connectPicsart}
+              onClose={() => closeDevice()}
+              onCancel={attemptId => { closeDevice(); void run(() => request("/auth/device/cancel", {attemptId}), "cancel"); }}
+            />
           )}
           {state.creditError && <p role="status">{state.creditError}</p>}
           {state.auth.loginError && <p role="alert">{state.auth.loginError}</p>}
@@ -1194,8 +1216,11 @@ export default function App() {
                 Uploads are stored in Picsart Drive. Original product photos stay in WordPress; a copy is sent to Picsart when you request a generation price.
               </small>
               </>}
+              {!textImage && source && <ImageToolActions subject={state.auth.subject} sourceId={selectedPhoto?.id}
+                enabled={state.auth.canGenerate} busy={busy || editRunning || !!confirmingPrice}
+                balance={state.credits?.balance} reserved={state.reserved} revision={quoteRevision} request={request} onGenerate={generate}/>}
               {(source || workspaceView==='images') && (
-                <details className="photo-library" open={workspaceView==='images'?true:undefined}>
+                <details className="photo-library" open={workspaceView==='images'||!!activeEditId?true:undefined}>
                   <summary>{workspaceView==='images'?'Generate an image':'Edit photo with AI (optional)'}</summary>
                   <p>{textImage ? 'Describe the image you want to create. No reference photo is needed.' : 'Describe how to transform your selected photo.'} Review the result here before saving it. It also stays in History.</p>
                   <label className="live-field">
@@ -1260,7 +1285,11 @@ export default function App() {
                       <ImageResult key={activeEdit.id} job={activeEdit} run={run} busy={busy}
                         selected={source === `edit-${activeEdit.id}`}
                         onUse={id=>window.location.assign(videoHandoffLink('source',id))} />
-                      {["REVIEW", "ACCEPTED", "SAVED", "ATTACHED", "REJECTED"].includes(activeEdit.status) && (
+                      {imageToolFor(activeEdit.quote.model) && <ImageToolActions regenerate onlyModel={activeEdit.quote.model}
+                        subject={state.auth.subject} sourceId={activeEdit.quote.source?.id} enabled={state.auth.canGenerate}
+                        busy={busy || editRunning || !!confirmingPrice} balance={state.credits?.balance} reserved={state.reserved}
+                        revision={quoteRevision} request={request} onGenerate={generate}/>}
+                      {!imageToolFor(activeEdit.quote.model) && ["REVIEW", "ACCEPTED", "SAVED", "ATTACHED", "REJECTED"].includes(activeEdit.status) && (
                         <div className="action-row">
                           <Button disabled={busy || !!confirmingPrice || !editPrompt.trim() || !editModels.length || !editPricing.quote || !!editCreditShortfall}
                             onClick={()=>void startGeneration("image")}>{editPricing.quote ? `Regenerate image · ${editPricing.quote.total} credits` : "Regenerate image · loading price…"}</Button>

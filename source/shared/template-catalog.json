@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "fidelity": "Use the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+  "templates": [
+    {
+      "id": "hero",
+      "name": "Hero approach",
+      "description": "A gentle push toward your product with a steady finish.",
+      "prompt": "A restrained camera push-in toward the product. Ease to a steady hold at the end.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Existing shared commerce preset",
+      "preview": {
+        "id": "hero",
+        "poster": "https://gcdn.picsart.com/editing-temp/1d4598dd-c7cb-4ac4-993e-8e6fcd10913b.png",
+        "video": "https://gcdn.picsart.com/editing-temp/f04f1505-73d6-489d-9ff0-eb1f6485d95d.mp4",
+        "label": "Generated cup example"
+      }
+    },
+    {
+      "id": "light",
+      "name": "Morning light",
+      "description": "Soft daylight moves gently across the scene.",
+      "prompt": "Keep the camera and product still. Slowly shift soft natural morning light across the surrounding scene.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Existing shared commerce preset",
+      "preview": {
+        "id": "light",
+        "poster": "https://gcdn.picsart.com/editing-temp/1d4598dd-c7cb-4ac4-993e-8e6fcd10913b.png",
+        "video": "https://gcdn.picsart.com/editing-temp/3c4fa75c-88cd-48b1-88d6-fa5717099888.mp4",
+        "label": "Generated cup example"
+      }
+    },
+    {
+      "id": "studio",
+      "name": "Studio spotlight",
+      "description": "A soft studio highlight reveals texture and material.",
+      "prompt": "Keep the product still. Sweep a broad, soft studio highlight very gently across its surface to reveal material texture. Avoid harsh reflections that obscure labels.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": false,
+      "provenance": "Existing shared commerce preset",
+      "preview": null
+    },
+    {
+      "id": "detail",
+      "name": "Detail focus",
+      "description": "A subtle focus shift brings a product detail into view.",
+      "prompt": "A small, controlled focus pull from the product silhouette to one visible material detail. Keep labels readable and avoid extreme blur. Use minimal camera movement.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": false,
+      "provenance": "Existing shared commerce preset",
+      "preview": null
+    },
+    {
+      "id": "slide",
+      "name": "Editorial slide",
+      "description": "A small sideways camera move with a clean composition.",
+      "prompt": "Move the camera slightly sideways across the existing scene, staying close to the original viewing angle. Maintain a clean editorial composition with very subtle parallax.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": false,
+      "provenance": "Existing shared commerce preset",
+      "preview": null
+    },
+    {
+      "id": "reveal",
+      "name": "Gentle reveal",
+      "description": "Pull back slightly to reveal more of the existing scene.",
+      "prompt": "Start with a modest crop into the supplied image and slowly pull back to the original composition. Reveal only what is already present in the photograph. Finish on a stable product hero shot.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": false,
+      "provenance": "Existing shared commerce preset",
+      "preview": null
+    },
+    {
+      "id": "golden",
+      "name": "Golden hour",
+      "description": "Warm, gradual lighting gives the scene an evening feel.",
+      "prompt": "Keep the product fixed. Introduce a subtle warm golden-hour quality to the background illumination while preserving the product’s true colors and accurate labels.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": false,
+      "provenance": "Existing shared commerce preset",
+      "preview": null
+    },
+    {
+      "id": "still",
+      "name": "Living still",
+      "description": "Almost-still motion for a calm, polished product loop.",
+      "prompt": "Create an almost-still product video. Keep the camera locked and the product stationary. Add only a faint natural change in surrounding light, easing back toward the original appearance at the end.\n\nUse the supplied product photograph as the visual reference. Preserve the product silhouette, proportions, material, color, printed text, labels and branding. Keep the product in frame. Preserve the source image’s visual style; do not turn an illustration into a photograph or add new surface patterns, embossing or decorations. Do not add text, logos, hands, people or extra products. Avoid distortion and invented hidden details. No sound.",
+      "version": 1,
+      "status": "established",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Existing shared commerce preset",
+      "preview": {
+        "id": "still",
+        "poster": "https://gcdn.picsart.com/editing-temp/1d4598dd-c7cb-4ac4-993e-8e6fcd10913b.png",
+        "video": "https://gcdn.picsart.com/editing-temp/89cb557c-45c4-413b-8521-889b5a51eb08.mp4",
+        "label": "Generated cup example"
+      }
+    },
+    {
+      "id": "e2abcb075136956aeaaf218e3c94256e12a265f85ace0d35c0bfe3da65bb429e",
+      "name": "Liquid glass",
+      "description": "A calm, premium scene for beauty and lifestyle products.",
+      "prompt": "Creative direction: Create a premium scene around the supplied product with softly refractive rounded transparent glass forms and tiny bubbles. Keep the product centered, sharp and uncovered as the surrounding glass drifts gently. Use a subtle camera push toward the product and end with a steady hold.\nMake one silent video in the selected duration, aspect ratio and resolution using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+      "version": 1,
+      "status": "approved",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+      "preview": {
+        "video": "https://cdn-pipeline-output.picsart.com/magic-flow/034d0b3a-62b3-49ea-ba01-256502dcce29.mp4",
+        "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/bff0b1d1-15e3-4cfc-9f5f-7e8830c49ad6.png",
+        "seconds": 4,
+        "label": "Flow example",
+        "url": "https://picsart.com/flow/templates/e2abcb075136956aeaaf218e3c94256e12a265f85ace0d35c0bfe3da65bb429e"
+      },
+      "onboardingPrompt": "Product context: {{product_info}}\nCreative direction: Create a premium scene around the supplied product with softly refractive rounded transparent glass forms and tiny bubbles. Keep the product centered, sharp and uncovered as the surrounding glass drifts gently. Use a subtle camera push toward the product and end with a steady hold.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition."
+    },
+    {
+      "id": "5a1b9decc18cbfdd72da5d32dafee3bf6aba99485084958906adb9200a577f64",
+      "name": "Candy cloud",
+      "description": "A playful seasonal look for launches and gift campaigns.",
+      "prompt": "Creative direction: Place the supplied product against a soft blue sky surrounded by glossy heart-shaped candy decorations. The product remains steady as the decorative hearts descend slowly past it. Maintain a clean, playful composition with the product fully visible.\nMake one silent video in the selected duration, aspect ratio and resolution using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+      "version": 1,
+      "status": "onboarding-only",
+      "workspace": false,
+      "onboarding": true,
+      "provenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+      "preview": {
+        "video": "https://cdn-pipeline-output.picsart.com/magic-flow/5e6ea258-2c40-451d-8221-22a75370bd17.mp4",
+        "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/95ae931d-be67-48d1-a94c-ab2f405afa15.png",
+        "seconds": 6,
+        "label": "Flow example",
+        "url": "https://picsart.com/flow/templates/5a1b9decc18cbfdd72da5d32dafee3bf6aba99485084958906adb9200a577f64"
+      },
+      "onboardingPrompt": "Product context: {{product_info}}\nCreative direction: Place the supplied product against a soft blue sky surrounded by glossy heart-shaped candy decorations. The product remains steady as the decorative hearts descend slowly past it. Maintain a clean, playful composition with the product fully visible.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition."
+    },
+    {
+      "id": "8a6aa61c3903a0592cfaa3024ae598d77d7629309c2d22473f3a9e1812d328e8",
+      "name": "Stop-motion collage",
+      "description": "A lively collection reveal for fashion and accessories.",
+      "prompt": "Creative direction: Create a pastel lavender paper-cutout collage using the supplied product as a single cutout above a plain white shopping bag. Move the cutout downward in small controlled stop-motion steps toward the bag, finishing with the product still visible above its rim. Keep the product shape and printed details unchanged.\nMake one silent video in the selected duration, aspect ratio and resolution using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+      "version": 1,
+      "status": "approved",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+      "preview": {
+        "video": "https://cdn-pipeline-output.picsart.com/magic-flow/b7d6aa13-b4e7-4a76-aa2f-5acf241805af.mp4",
+        "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/c1591f0f-52e8-48e4-b5b0-15adb92bf2fe.png",
+        "seconds": 4,
+        "label": "Flow example",
+        "url": "https://picsart.com/flow/templates/8a6aa61c3903a0592cfaa3024ae598d77d7629309c2d22473f3a9e1812d328e8"
+      },
+      "onboardingPrompt": "Product context: {{product_info}}\nCreative direction: Create a pastel lavender paper-cutout collage using the supplied product as a single cutout above a plain white shopping bag. Move the cutout downward in small controlled stop-motion steps toward the bag, finishing with the product still visible above its rim. Keep the product shape and printed details unchanged.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition."
+    },
+    {
+      "id": "c1791aceb89c10cb3c0597df11227e131ae7303ad1a09b9d9265ac2feebb614b",
+      "name": "Fruit splash",
+      "description": "An energetic look for food and beauty campaigns.",
+      "prompt": "Creative direction: Create a color-coordinated campaign scene around the supplied product. Decorative fruit and water droplets drift down around the stationary product, leaving its label clear. Use one product only. Fruit is decorative scenery, not a claim about product ingredients or fragrance.\nMake one silent video in the selected duration, aspect ratio and resolution using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+      "version": 1,
+      "status": "onboarding-only",
+      "workspace": true,
+      "onboarding": true,
+      "provenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+      "preview": {
+        "video": "https://cdn-pipeline-output.picsart.com/magic-flow/e88b04f3-8771-4e96-b93e-ba664aa8cac5.mp4",
+        "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/7776845f-3f58-4ecd-91a8-19857a5e9697.png",
+        "seconds": 5,
+        "label": "Flow example",
+        "url": "https://picsart.com/flow/templates/c1791aceb89c10cb3c0597df11227e131ae7303ad1a09b9d9265ac2feebb614b"
+      },
+      "onboardingPrompt": "Product context: {{product_info}}\nCreative direction: Create a color-coordinated campaign scene around the supplied product. Decorative fruit and water droplets drift down around the stationary product, leaving its label clear. Use one product only. Fruit is decorative scenery, not a claim about product ingredients or fragrance.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition."
+    }
+  ]
+}

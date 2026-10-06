@@ -5,7 +5,7 @@ import {notificationAllowed,type NotificationCategory} from '../../shared/notifi
 export interface WorkspaceUpdate {id:string;jobId?:string;category:NotificationCategory;text:string}
 export function workspaceUpdates(state:State):WorkspaceUpdate[]{
  const items:WorkspaceUpdate[]=[];
- if(state.auth.requiresReconnect||state.auth.requiresSessionReset)items.push({id:'connection',category:'setup',text:'Reconnect Picsart to refresh your permissions. Your saved work is still available.'});
+ if(state.auth.requiresReconnect)items.push({id:'connection',category:'setup',text:'Reconnect Picsart to refresh your permissions. Your saved work is still available.'});
  const status=(j:Job):WorkspaceUpdate|undefined=>{
   const name=j.quote.source?.productName??j.quote.source?.name??'Generated image';
   const base={id:`${j.id}:${j.status}`,jobId:j.id};

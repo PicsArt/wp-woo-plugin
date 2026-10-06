@@ -12,7 +12,7 @@
     if (!response.ok) throw new Error('Account status unavailable');
     const data = await response.json();
     if (typeof data.auth?.authenticated !== 'boolean') throw new Error('Missing account status');
-    const reconnect = data.auth.requiresReconnect || data.auth.requiresSessionReset;
+    const reconnect = data.auth.requiresReconnect;
     if (notice) notice.hidden = data.auth.authenticated && !reconnect;
     if (status && link) {
     status.textContent = reconnect ? config.reconnect : data.auth.authenticated ? config.connected : config.disconnected;

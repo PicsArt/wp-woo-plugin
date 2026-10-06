@@ -14,7 +14,7 @@ function picsart_video_proxy(WP_REST_Request $request) {
     $params = $request->get_query_params(); unset($params['rest_route']);
     $route = $params['route'] ?? '/state';
     if (!is_string($route) || !preg_match('#^/[a-zA-Z0-9/_-]+$#', $route)) return picsart_video_error(__('Invalid studio route.','picsart-ai-image-editor'));
-    if (str_starts_with($route, '/auth/') && !in_array($route, ['/auth/prepare','/auth/start','/auth/repair','/auth/disconnect'], true)) return picsart_video_error(__('Use the sign-in window.','picsart-ai-image-editor'), 403);
+    if (str_starts_with($route, '/auth/') && !in_array($route, ['/auth/device/start','/auth/device/poll','/auth/device/cancel','/auth/disconnect'], true)) return picsart_video_error(__('Sign-in action not available.','picsart-ai-image-editor'), 403);
     if (in_array($route, ['/approvals','/tick','/image-tools'], true) && !current_user_can('picsart_generate')) return picsart_video_error(__('Your administrator must grant Picsart generation permission.','picsart-ai-image-editor'), 403);
     // Site-wide, demand-driven daily catalog refresh. No cron or account data in this cache.
     $catalog_request=$route==='/model-catalog' && $request->get_method()==='GET';

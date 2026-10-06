@@ -914,3 +914,6 @@ code {
 .picsart-dismissible-help{position:relative}.picsart-dismissible-help>div>.review-notice{padding-right:58px}.picsart-dismissible-help:not(:has(.review-notice)){display:none}
 .picsart-hide-help{position:absolute;right:12px;top:12px;width:32px;height:32px;padding:0!important;border:0!important;background:transparent!important;color:#173041!important;font-size:24px!important;line-height:1;cursor:pointer}
 .picsart-hide-help:focus-visible{outline:2px solid #861acb;outline-offset:2px}.picsart-help-restore{display:flex;justify-content:flex-end;margin:8px 0}.picsart-help-restore button{display:flex;align-items:center;gap:7px}.picsart-help-restore button>span:first-child{font-size:22px}
+.device-sign-in{padding:16px;margin:16px 0;border:1px solid #b9d6ef;border-radius:8px;background:#f0f7ff;max-width:560px}.device-sign-in h2{margin:0 0 8px;font-size:17px}.device-sign-in p{margin:8px 0}
+.device-code-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}.device-code{font:600 28px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;user-select:all;background:white;border:1px solid #b9d6ef;border-radius:6px;padding:6px 12px}
+.device-open{font-weight:600}.device-actions{display:flex;gap:8px;flex-wrap:wrap}

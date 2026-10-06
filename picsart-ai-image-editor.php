@@ -50,7 +50,8 @@ add_action('admin_enqueue_scripts', function ($hook) {
     wp_enqueue_script('picsart-studio', plugins_url('assets/studio.js', __FILE__), ['wp-element'], '1.1.2-' . (string) filemtime(__DIR__ . '/assets/studio.js'), true);
     wp_add_inline_script('picsart-studio', 'window.picsartStudio=' . wp_json_encode([
         'userId'=>get_current_user_id(), 'workspaceView'=>str_ends_with($hook,'_page_picsart-settings')?'settings':(str_ends_with($hook,'_page_picsart-image-generation')?'images':(str_ends_with($hook,'_page_picsart-history')?'history':'videos')), 'hasWooCommerce'=>function_exists('wc_get_products'), 'endpoint'=>rest_url('picsart/v1/studio'), 'wpEndpoint'=>rest_url('picsart/v1'), 'assetsUrl'=>plugins_url('assets/',__FILE__), 'nonce'=>wp_create_nonce('wp_rest'),
-        ...picsart_navigation_context(), 'navigationNonce'=>wp_create_nonce('picsart_navigation')
+        ...picsart_navigation_context(), 'navigationNonce'=>wp_create_nonce('picsart_navigation'),
+        'consent'=>picsart_commerce_consent()
     ]) . ';', 'before');
 });
 add_action('add_meta_boxes', function ($post_type,$post) {
