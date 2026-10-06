@@ -139,6 +139,22 @@ export interface Session {
   wordpressUserId?: string;
   owner: string;
 }
+export interface PendingDevice {
+  attemptId: string;
+  userCode: string;
+  verificationUri: string;
+  verificationUriComplete?: string;
+  expiresAt: number;
+  /** Milliseconds left when the server answered; immune to browser clock drift. */
+  expiresIn: number;
+  interval: number;
+  /** Approved; the server is still moving the account into the workspace. */
+  finishing?: boolean;
+}
+export type DeviceLoginStatus =
+  | ({ status: "pending"; finishing?: boolean } & PendingDevice)
+  | { status: "connected"; attemptId?: string }
+  | { status: "denied" | "expired" | "error"; attemptId?: string; message: string };
 export interface State {
   welcomeOffer?: {status:'funding-unavailable';videos:2;durationSeconds:10;windowDays:30;model:string;canClaim:false;canGenerate:false};
   pendingAccountRecovery?:number;
@@ -152,8 +168,9 @@ export interface State {
     subject?: string;
     canGenerate: boolean;
     requiresReconnect?: boolean;
-    requiresSessionReset?: boolean;
     loginError?: string;
+    /** Public half of a pending device sign-in, so a reloaded tab resumes it. */
+    pendingDevice?: PendingDevice;
   };
   wordpress: { configured: boolean; connected: boolean };
   credits: { balance: number; total: number; nextResetDate?: string; packageUsage?: {used:number;allowance:number} } | null;

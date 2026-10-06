@@ -89,6 +89,10 @@ function picsart_commerce_restore($r) {
     $lock='_picsart_commerce_target_'.hash('sha256',$record['type'].'|'.$record['target']); if (!picsart_receipt_add($lock,time(),'',false)) return picsart_video_error(__('Another change is pending.','picsart-ai-image-editor'),409);
     try { if (picsart_commerce_value($record['type'],$record['target'])!==$record['after']) return picsart_video_error(__('Destination changed since this edit. Nothing restored.','picsart-ai-image-editor'),409); if (!picsart_commerce_write($record['type'],$record['target'],$record['before'],$record['after'])) return picsart_video_error(__('The destination changed during restore. Review it again.','picsart-ai-image-editor'),409); if (picsart_commerce_value($record['type'],$record['target'])!==$record['before']) return picsart_video_error(__('The previous image could not be restored. Review the destination and try again.','picsart-ai-image-editor'),500); return ['restored'=>true]; } finally { delete_option($lock); }
 }
+function picsart_commerce_consent() {
+    $prefs=get_user_meta(get_current_user_id(),'_picsart_preferences',true);
+    return is_array($prefs) && !empty($prefs['consent']);
+}
 function picsart_commerce_preferences($r) {
     $key='_picsart_preferences'; $prefs=get_user_meta(get_current_user_id(),$key,true); if (!is_array($prefs)) $prefs=['consent'=>false,'notifications'=>true,'dismissed'=>false];
     if ($r->get_method()==='POST') { foreach (['consent','notifications','dismissed'] as $field) if ($r->has_param($field)) $prefs[$field]=rest_sanitize_boolean($r[$field]); update_user_meta(get_current_user_id(),$key,$prefs); }

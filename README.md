@@ -4,9 +4,9 @@ Picsart Commerce adds AI image generation, image editing, video generation, and 
 
 ## Review snapshot
 
-This public plugin copy comes from the canonical GitLab `picsart/pa-plugins` repository at commit `10e9c99`, app `apps/wordpress-product-videos`. It contains the allowlisted WordPress distribution and readable browser source, not the private companion-service implementation or repository history.
+This public plugin copy comes from the canonical GitLab `picsart/pa-plugins` repository at commit `a9784ecedb6022dfb7e70a3185997e3163e7e97c` (GitLab MR73 feature branch; not yet merged into GitLab main), app `apps/wordpress-product-videos`. It contains the allowlisted WordPress distribution and readable browser source, not the private companion-service implementation or repository history.
 
-Version: 1.1.2. Background removal and upscaling are Phase 2 and are not offered in this release.
+Version: 1.1.2 (review snapshot). Background removal and enhancement are restored through the connected-account OAuth service. Actions display credit costs and require approval; current verified quotes were 0 credits for background removal and 2 credits for enhancement. Service quotes remain authoritative.
 
 ## Install for review
 
@@ -20,7 +20,7 @@ See [source/README.md](source/README.md) for browser asset rebuild instructions,
 
 ## Validation
 
-The source snapshot passed the app build/package gate, 147 application tests before the onboarding change, native WordPress integration tests including Dashboard/Posts/Pages/Media/WooCommerce onboarding, and five onboarding connection-state tests. The current package has not completed a fresh Plugin Check run because the local Docker daemon was unavailable. Public production enrollment, full remote catalog/embed contracts, and final live support verification remain release work.
+The upstream snapshot passed 211 application tests, TypeScript checking, and the build/package gate (127 allowlisted files). The public browser source also passed its build, TypeScript checking, and all 13 included standalone tests. These checks do not establish live installed or production acceptance. GitLab review retains a live Wix analytics Debug acceptance blocker. Production enrollment, supported public free-to-edit catalog/embed contracts, final live support verification, and a fresh Plugin Check remain release work. Unsupported public catalog access fails closed; connected Drive remains available.
 
 WordPress.org publication uses plugin ZIP submission and, after approval, WordPress.org SVN. GitHub hosts this reviewable source copy; it does not replace directory submission.
 

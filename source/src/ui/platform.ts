@@ -1,5 +1,5 @@
 declare global {
-  interface Window { picsartStudio: {endpoint:string;nonce:string;userId?:number;hasWooCommerce?:boolean;workspaceView?:"videos"|"images"|"history"|"settings";productId?:string;wpEndpoint?:string;attachmentId?:string|number;postId?:string|number;termId?:string|number;target?:string;view?:string;assetsUrl?:string;navigationNonce?:string} }
+  interface Window { picsartStudio: {endpoint:string;nonce:string;userId?:number;hasWooCommerce?:boolean;workspaceView?:"videos"|"images"|"history"|"settings";productId?:string;wpEndpoint?:string;attachmentId?:string|number;postId?:string|number;termId?:string|number;target?:string;view?:string;assetsUrl?:string;navigationNonce?:string;consent?:boolean} }
 }
 export function platformEndpoint(path:string) {
   const input=new URL(path,'https://route.invalid');
@@ -9,7 +9,9 @@ export function platformEndpoint(path:string) {
   return url.href;
 }
 export function platformFetch(url:string|URL,init:RequestInit={}) {
-  return fetch(url,{...init,credentials:'same-origin',headers:{...init.headers,'X-WP-Nonce':window.picsartStudio.nonce}});
+  const target=new URL(url,window.location.href);
+  if(target.origin!==window.location.origin)throw new Error('Unexpected WordPress endpoint.');
+  return fetch(target.href,{...init,credentials:'same-origin',headers:{...init.headers,'X-WP-Nonce':window.picsartStudio.nonce}});
 }
 
 export function studioLink(view:string){return `admin.php?page=picsart-studio&view=${encodeURIComponent(view)}&_picsart_context=${encodeURIComponent(window.picsartStudio.navigationNonce??'')}`;}

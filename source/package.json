@@ -3,19 +3,9 @@
   "type": "module",
   "version": "1.1.2",
   "scripts": {
-    "dev": "node --import tsx scripts/dev.ts",
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/server/*.test.ts src/ui/*.test.ts shared/*.test.ts",
-    "package": "npm run build && node scripts/package.mjs",
-    "stop": "node scripts/stop.mjs",
-    "clean:environment": "node scripts/clean.mjs",
-    "check:catalog": "tsx scripts/check-catalog.ts",
-    "predev": "node scripts/setup.mjs && npm run build",
-    "pretest": "node scripts/setup.mjs",
-    "test:integration": "node --import tsx scripts/smoke.ts",
-    "worker:once": "node --import tsx src/server/worker-command.ts",
-    "serve": "node --import tsx scripts/serve.ts"
+    "test": "node --import tsx --test src/ui/active-image.test.ts src/ui/history.test.ts src/ui/platform.test.ts src/ui/device-sign-in.test.ts"
   },
   "dependencies": {
     "@picsart/ai-sdk": "6.2.3",
