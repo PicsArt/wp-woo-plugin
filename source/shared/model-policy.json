@@ -1,0 +1,18 @@
+{
+  "defaultVideoModel": "seedance-2.5",
+  "videoShortlist": [
+    "seedance-2.5",
+    "seedance-2.0",
+    "flux-3-video",
+    "minimax-h3",
+    "minimax-h3-max",
+    "veo-3.1",
+    "gemini-omni-1.1-flash-preview",
+    "gemini-omni-flash-preview",
+    "happyhorse-1.0-r2v"
+  ],
+  "imageShortlist": [
+    "gpt-image-2.5-flare",
+    "gpt-image-2.5-sunburst"
+  ]
+}

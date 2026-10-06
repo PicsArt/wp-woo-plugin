@@ -1,0 +1,50 @@
+[
+  {
+    "id": "e2abcb075136956aeaaf218e3c94256e12a265f85ace0d35c0bfe3da65bb429e",
+    "name": "Liquid glass",
+    "description": "A calm, premium scene for beauty and lifestyle products.",
+    "url": "https://picsart.com/flow/templates/e2abcb075136956aeaaf218e3c94256e12a265f85ace0d35c0bfe3da65bb429e",
+    "video": "https://cdn-pipeline-output.picsart.com/magic-flow/034d0b3a-62b3-49ea-ba01-256502dcce29.mp4",
+    "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/bff0b1d1-15e3-4cfc-9f5f-7e8830c49ad6.png",
+    "seconds": 4,
+    "prompt": "Product context: {{product_info}}\nCreative direction: Create a premium scene around the supplied product with softly refractive rounded transparent glass forms and tiny bubbles. Keep the product centered, sharp and uncovered as the surrounding glass drifts gently. Use a subtle camera push toward the product and end with a steady hold.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+    "promptProvenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+    "version": 1
+  },
+  {
+    "id": "5a1b9decc18cbfdd72da5d32dafee3bf6aba99485084958906adb9200a577f64",
+    "name": "Candy cloud",
+    "description": "A playful seasonal look for launches and gift campaigns.",
+    "url": "https://picsart.com/flow/templates/5a1b9decc18cbfdd72da5d32dafee3bf6aba99485084958906adb9200a577f64",
+    "video": "https://cdn-pipeline-output.picsart.com/magic-flow/5e6ea258-2c40-451d-8221-22a75370bd17.mp4",
+    "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/95ae931d-be67-48d1-a94c-ab2f405afa15.png",
+    "seconds": 6,
+    "prompt": "Product context: {{product_info}}\nCreative direction: Place the supplied product against a soft blue sky surrounded by glossy heart-shaped candy decorations. The product remains steady as the decorative hearts descend slowly past it. Maintain a clean, playful composition with the product fully visible.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+    "promptProvenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+    "version": 1
+  },
+  {
+    "id": "8a6aa61c3903a0592cfaa3024ae598d77d7629309c2d22473f3a9e1812d328e8",
+    "name": "Stop-motion collage",
+    "description": "A lively collection reveal for fashion and accessories.",
+    "url": "https://picsart.com/flow/templates/8a6aa61c3903a0592cfaa3024ae598d77d7629309c2d22473f3a9e1812d328e8",
+    "video": "https://cdn-pipeline-output.picsart.com/magic-flow/b7d6aa13-b4e7-4a76-aa2f-5acf241805af.mp4",
+    "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/c1591f0f-52e8-48e4-b5b0-15adb92bf2fe.png",
+    "seconds": 4,
+    "prompt": "Product context: {{product_info}}\nCreative direction: Create a pastel lavender paper-cutout collage using the supplied product as a single cutout above a plain white shopping bag. Move the cutout downward in small controlled stop-motion steps toward the bag, finishing with the product still visible above its rim. Keep the product shape and printed details unchanged.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+    "promptProvenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+    "version": 1
+  },
+  {
+    "id": "c1791aceb89c10cb3c0597df11227e131ae7303ad1a09b9d9265ac2feebb614b",
+    "name": "Fruit splash",
+    "description": "An energetic look for food and beauty campaigns.",
+    "url": "https://picsart.com/flow/templates/c1791aceb89c10cb3c0597df11227e131ae7303ad1a09b9d9265ac2feebb614b",
+    "video": "https://cdn-pipeline-output.picsart.com/magic-flow/e88b04f3-8771-4e96-b93e-ba664aa8cac5.mp4",
+    "poster": "https://cdn-pipeline-output.picsart.com/magic-flow/7776845f-3f58-4ecd-91a8-19857a5e9697.png",
+    "seconds": 5,
+    "prompt": "Product context: {{product_info}}\nCreative direction: Create a color-coordinated campaign scene around the supplied product. Decorative fruit and water droplets drift down around the stationary product, leaving its label clear. Use one product only. Fruit is decorative scenery, not a claim about product ingredients or fragrance.\nMake one silent 10-second vertical 9:16 video at 1080p using the selected photo as the product reference. Preserve its appearance, proportions, colors and branding. Add no written claims, captions or new branding. End on a calm readable composition.",
+    "promptProvenance": "Adapted from the public Flow template description; original node prompts are not exposed in public page HTML.",
+    "version": 1
+  }
+]
