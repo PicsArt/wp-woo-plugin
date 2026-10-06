@@ -4,7 +4,7 @@ GitHub stores the public source and review history. WordPress.org uses a ZIP sub
 
 ## Release readiness
 
-This snapshot is for source review. Resolve production service provisioning and automatic installation enrollment before public rollout. Verify the current service disclosures, account connection, support destinations, and remaining media catalog/embed requirements. Background removal and enhancement use connected-account OAuth and authoritative service quotes. Verify their current prices and permissions before release; do not promise universal free-plan entitlement. The imported feature branch still requires its recorded live analytics acceptance before GitLab merge.
+This snapshot is for source review. Resolve production service provisioning and automatic installation enrollment before public rollout. Verify the current service/data-sharing disclosures, account connection, support destinations, and remaining media catalog/embed requirements. WordPress.org requires documented external services and data sharing; it does not prescribe separate hosting-region or retention-schedule fields in the readme. Background removal and enhancement use connected-account OAuth and authoritative service quotes. Verify their current prices and permissions before release; do not promise universal free-plan entitlement. The imported feature branch still requires its recorded live analytics acceptance before GitLab merge.
 
 ## Select and validate the commit
 
@@ -44,3 +44,21 @@ Publishing credentials belong in the approved credential manager or release envi
 ## Rollback
 
 Retain the last tested ZIP and its commit/checksum. Diagnose whether a problem is plugin-side or service-side before changing either. For public fixes, create a reviewed revert or repair, assign a new version, repeat validation, and publish through the same channels. Do not rewrite public tags or delete merchant content as a rollback strategy.
+
+## Local PHP and WP-CLI on macOS
+
+With Homebrew installed, run:
+
+```sh
+brew install php wp-cli
+php -v
+wp --info
+```
+
+These install command-line tooling; starting a PHP background service is not necessary for CLI checks. A functioning WordPress installation and database are still needed for installed-plugin checks. The plugin declares PHP 8.2 as its minimum; test that version separately as well as the current PHP version.
+
+Official installation references: https://formulae.brew.sh/formula/php and https://make.wordpress.org/cli/handbook/guides/installing/.
+
+## Listing artwork
+
+The `.wordpress-org/` directory contains the seven screenshot files matching readme captions, standard and Retina banners, and icons. Copy its PNG files to WordPress.org SVN's root `assets/` directory after approval. Exclude `.wordpress-org/` from the runtime ZIP. See `.wordpress-org/README.md` for provenance and the interim screenshot limitation.
